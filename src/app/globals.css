@@ -1,10 +1,19 @@
 @import "tailwindcss";
 
+:root {
+  --sidebar-width: 15rem;
+}
+
 @theme inline {
   --color-primary: #AD2528;
   --color-bg: #191B28;
   --color-border: #2A3439;
   --font-sans: var(--font-noto-sans);
+  --spacing-layout: 1.2rem;
+  --duration-default: 333ms;
+  --ease-default: ease-in-out;
+  --default-transition-duration: var(--duration-default);
+  --default-transition-timing-function: var(--ease-default);
 }
 
 
