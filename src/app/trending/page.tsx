@@ -6,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function TrendingPage() {
-  return <div>Trending</div>;
+  return <div>Trending..</div>;
 }

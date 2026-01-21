@@ -1,7 +1,10 @@
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
 import { Noto_Sans } from 'next/font/google';
 
 import { Layout } from '@/components/layout/layout';
+
+import { Providers } from '@/providers/Providers';
 
 import './globals.css';
 
@@ -24,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${notoSans.variable} antialiased font-sans text-white bg-bg text-base`}>
-        <Layout>{children}</Layout>
+        <Providers>
+          <Layout>{children}</Layout>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </Providers>
       </body>
     </html>
   );

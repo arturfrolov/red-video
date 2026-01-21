@@ -9,6 +9,12 @@ class PublicPage {
   LINKED_VIDEOS = '/linked-videos';
   SETTINGS = '/settings';
   FEEDBACK = '/feedback';
+  VIDEO(path: string) {
+    return `/v/${path}`;
+  }
+  CHANNEL(path: string) {
+    return `/c/${path}`;
+  }
 }
 
-export const PUBLIC_PAGE = new PublicPage();
+export const PAGE = new PublicPage();
