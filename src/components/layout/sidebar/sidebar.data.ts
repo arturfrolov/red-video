@@ -13,6 +13,7 @@ import {
 import type { ISidebarItem } from '@/components/layout/sidebar/sidebar.types';
 
 import { PAGE } from '@/config/public-page.cofig';
+import { STUDIO_PAGE } from '@/config/studio-page.cofig';
 
 export const SIDEBAR_DATA: ISidebarItem[] = [
   {
@@ -58,7 +59,7 @@ export const MORE_SIDEBAR_DATA: ISidebarItem[] = [
   {
     icon: Settings,
     label: 'Settings',
-    link: PAGE.SETTINGS,
+    link: STUDIO_PAGE.SETTINGS,
   },
   {
     icon: CircleAlert,

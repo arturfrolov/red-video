@@ -6,7 +6,7 @@ import { VideoItem } from '@/ui/video-item/VideoItem';
 
 import { PAGE } from '@/config/public-page.cofig';
 
-import { Explore } from '@/app/explore/Explore';
+import { Explore } from '@/app/(public)/explore/Explore';
 import { videoService } from '@/services/video.service';
 
 export const revalidate = 100;
@@ -32,14 +32,17 @@ export default async function Home() {
       <section>
         <Heading Icon={Flame}>Trending</Heading>
         <div className='grid grid-cols-6 gap-6'>
-          {data?.length &&
+          {data?.length ? (
             data.map((video) => (
               <VideoItem
                 key={video.id}
                 video={video}
                 Icon={Flame}
               />
-            ))}
+            ))
+          ) : (
+            <p>No videos</p>
+          )}
         </div>
       </section>
       <Explore />

@@ -24,14 +24,15 @@ export function Explore() {
             count={6}
             className='h-45 rounded-md'
           />
-        ) : (
-          data?.length &&
+        ) : data?.length ? (
           data.map((video) => (
             <VideoItem
               key={video.id}
               video={video}
             />
           ))
+        ) : (
+          <p>No videos</p>
         )}
       </div>
     </section>

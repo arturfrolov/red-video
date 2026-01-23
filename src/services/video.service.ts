@@ -13,6 +13,20 @@ class VideoService {
     const res = await axios.get<IVideo[]>(`${this.BASE_URL}/trending`);
     return res.data;
   }
+
+  async getAll(searchTerm?: string | null) {
+    const res = await axios.get<IExploreVideos>(
+      `${this.BASE_URL}`,
+      searchTerm
+        ? {
+            params: {
+              searchTerm,
+            },
+          }
+        : {}
+    );
+    return res.data.videos;
+  }
 }
 
 export const videoService = new VideoService();
