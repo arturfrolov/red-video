@@ -1,33 +1,12 @@
-@keyframes hideSidebar {
-  from {
-    width: var(--sidebar-width);
-  }
-
-  to {
-    width: 3.8rem;
-  }
-}
-
-@keyframes showSidebar {
-  from {
-    width: 3.8rem;
-  }
-
-  to {
-    width: var(--sidebar-width);
-    transform: translateX(0);
-  }
-}
-
 .hidedSidebar {
   > aside {
-    animation: hideSidebar .35s forwards;
+    width: 3.8rem;
     flex-grow: 0;
 
     > nav {
       > div:first-child {
         opacity: 0;
-        transition: opacity .3s;
+        transition: opacity .35s;
       }
     }
   }
@@ -39,7 +18,12 @@
 
 .showedSidebar {
   > aside {
-    animation: showSidebar .3s forwards;
     width: var(--sidebar-width);
+  }
+}
+
+.initialSidebar {
+  > aside {
+    transition: width .35s;
   }
 }

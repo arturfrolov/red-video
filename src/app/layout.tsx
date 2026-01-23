@@ -15,7 +15,10 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Red Video',
+  title: {
+    absolute: 'Red Video',
+    template: `%s | Red Video`,
+  },
   description: 'Best app for video watching',
 };
 
