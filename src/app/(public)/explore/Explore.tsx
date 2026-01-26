@@ -18,7 +18,7 @@ export function Explore() {
   return (
     <section>
       <Heading Icon={Compass}>Explore</Heading>
-      <div className='grid grid-cols-6 gap-6'>
+      <div className='grid-6-cols'>
         {isLoading ? (
           <SkeletonLoader
             count={6}
@@ -32,7 +32,7 @@ export function Explore() {
             />
           ))
         ) : (
-          <p>No videos</p>
+          <p>Explore are temporarily unavailable</p>
         )}
       </div>
     </section>
