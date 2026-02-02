@@ -1,4 +1,5 @@
 import { BadgeCheck, type LucideIcon } from 'lucide-react';
+import * as m from 'motion/react-m';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,7 +17,17 @@ interface Props {
 
 export function VideoItem({ video, Icon }: Props) {
   return (
-    <div>
+    <m.div
+      style={{ willChange: 'transform' }}
+      whileHover={{
+        y: -5,
+      }}
+      transition={{
+        type: 'spring',
+        stiffness: 500,
+        damping: 30,
+      }}
+    >
       <div className='relative mb-1.5'>
         <Link
           href={PAGE.VIDEO(video.id)}
@@ -81,6 +92,6 @@ export function VideoItem({ video, Icon }: Props) {
           )}
         </Link>
       </div>
-    </div>
+    </m.div>
   );
 }
