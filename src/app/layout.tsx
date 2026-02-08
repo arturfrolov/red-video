@@ -31,7 +31,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${notoSans.variable} antialiased font-sans text-white bg-bg text-base`}>
         <Providers>
-          <Layout>{children}</Layout>
+          {children}
           <ReactQueryDevtools initialIsOpen={false} />
         </Providers>
       </body>

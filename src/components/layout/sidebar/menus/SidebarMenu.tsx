@@ -1,4 +1,4 @@
-import { usePathname } from 'next/dist/client/components/navigation';
+import { usePathname } from 'next/navigation';
 import { match } from 'path-to-regexp';
 
 import { MenuItem } from '@/components/layout/sidebar/menus/MenuItem';
