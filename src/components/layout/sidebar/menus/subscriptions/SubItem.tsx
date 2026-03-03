@@ -1,5 +1,6 @@
-import { Dot, Link, Radio } from 'lucide-react';
+import { Dot, Radio } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import type { ISidebarSubItem } from '@/components/layout/sidebar/sidebar.types';
 
