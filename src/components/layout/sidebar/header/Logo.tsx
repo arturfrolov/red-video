@@ -1,7 +1,7 @@
 import { SquarePlay } from 'lucide-react';
 import Link from 'next/link';
 
-import { PAGE } from '@/config/public-page.cofig';
+import { PAGE } from '@/config/public-page.config';
 
 export function Logo() {
   return (

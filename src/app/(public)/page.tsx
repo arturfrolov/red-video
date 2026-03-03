@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { Heading } from '@/ui/heading/Heading';
 import { VideoItem } from '@/ui/video-item/VideoItem';
 
-import { PAGE } from '@/config/public-page.cofig';
+import { PAGE } from '@/config/public-page.config';
 
 import { Explore } from '@/app/(public)/explore/Explore';
 import { videoService } from '@/services/video.service';

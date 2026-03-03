@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
 import { type KeyboardEvent, useState } from 'react';
 
-import { PAGE } from '@/config/public-page.cofig';
+import { PAGE } from '@/config/public-page.config';
 
 interface Props {}
 

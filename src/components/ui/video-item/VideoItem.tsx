@@ -3,7 +3,7 @@ import * as m from 'motion/react-m';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { PAGE } from '@/config/public-page.cofig';
+import { PAGE } from '@/config/public-page.config';
 
 import { transformDate } from '@/utils/transform-date';
 import { transformViews } from '@/utils/transform-views';

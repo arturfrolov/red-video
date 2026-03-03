@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { STUDIO_PAGE } from '@/config/studio-page.cofig';
+import { STUDIO_PAGE } from '@/config/studio-page.config';
 
 export function HeaderProfile() {
   return (
