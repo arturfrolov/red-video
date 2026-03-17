@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useForm, useWatch } from 'react-hook-form';
 
@@ -10,8 +11,11 @@ import { Button } from '@/ui/button/Button';
 import { Field } from '@/ui/field/Field';
 import { SkeletonLoader } from '@/ui/skeleton-loader/SkeletonLoader';
 
+import { PAGE } from '@/config/public-page.config';
+
 import type { IAuthForm } from './auth-form.types';
 import { useAuthForm } from '@/app/auth/useAuthForm';
+import { useTypedSelector } from '@/store';
 
 import styles from './captcha.module.scss';
 
@@ -30,6 +34,14 @@ export function Auth() {
   const password = useWatch({ control, name: 'password' });
 
   const { isLoading, onSubmit, recaptchaRef } = useAuthForm(isLogin ? 'login' : 'register', reset);
+
+  const accessToken = useTypedSelector((state) => state.auth.accessToken);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!accessToken) return;
+    router.push(PAGE.HOME);
+  }, [accessToken, router]);
 
   return (
     <div className='w-screen h-screen flex items-center justify-center'>
