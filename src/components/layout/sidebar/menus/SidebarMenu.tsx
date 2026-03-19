@@ -7,9 +7,10 @@ import type { ISidebarItem } from '@/components/layout/sidebar/sidebar.types';
 interface Props {
   title?: string;
   menu: ISidebarItem[];
+  isShowedSidebar: boolean;
 }
 
-export function SidebarMenu({ menu, title }: Props) {
+export function SidebarMenu({ menu, title, isShowedSidebar }: Props) {
   const pathname = usePathname();
 
   return (
@@ -21,6 +22,7 @@ export function SidebarMenu({ menu, title }: Props) {
             key={menuItem.link}
             item={menuItem}
             isActive={!!match(menuItem.link)(pathname)}
+            isShowedSidebar={isShowedSidebar}
           />
         ))}
       </ul>

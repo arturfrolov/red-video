@@ -2,8 +2,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import type { Metadata } from 'next';
 import { Noto_Sans } from 'next/font/google';
 
-import { Layout } from '@/components/layout/layout';
-
 import { Providers } from '@/providers/Providers';
 
 import './globals.css';

@@ -49,7 +49,7 @@ export function VideoItem({ video, Icon }: Props) {
             src={video.channel.avatarUrl}
             width={35}
             height={35}
-            alt={video.channel.user.name}
+            alt={video.channel.user.name ? video.channel.user.name : 'Channel avatar'}
             className='rounded-full shadow'
           />
         </Link>

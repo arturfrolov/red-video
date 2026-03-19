@@ -6,9 +6,10 @@ import type { ISidebarItem } from '@/components/layout/sidebar/sidebar.types';
 interface Props {
   item: ISidebarItem;
   isActive: boolean;
+  isShowedSidebar: boolean;
 }
 
-export function MenuItem({ item, isActive }: Props) {
+export function MenuItem({ item, isActive, isShowedSidebar }: Props) {
   return (
     <li>
       <Link
@@ -18,6 +19,7 @@ export function MenuItem({ item, isActive }: Props) {
         <item.icon
           className={cn('shrink-0', {
             'group-hover:text-primary group-hover:rotate-6 transition': !isActive,
+            'text-red-400': isActive && !isShowedSidebar,
           })}
         />
         <span
