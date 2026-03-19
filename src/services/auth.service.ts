@@ -32,12 +32,24 @@ class AuthService {
     return response;
   }
 
+  async initializeAuth() {
+    const accessToken = Cookies.get(EnumTokens.ACCESS_TOKEN);
+    if (accessToken) return;
+
+    try {
+      await this.getNewTokens();
+    } catch (error) {
+      store.dispatch(clearAuthData());
+    }
+  }
+
   // CLIENT
   async getNewTokens() {
     const response = await axiosClassic.post<IAuthResponse>(`${this._AUTH}/access-token`);
 
     if (response.data.accessToken) {
       this._saveTokenStorage(response.data.accessToken);
+      store.dispatch(setAuthData(response.data));
     }
 
     return response;
@@ -62,8 +74,7 @@ class AuthService {
     const response = await axiosClassic.post<boolean>(`${this._AUTH}/logout`);
 
     if (response.data) {
-      this._removeFromStorage();
-      store.dispatch(clearAuthData());
+      this.removeFromStorage();
     }
 
     return response;
@@ -73,12 +84,14 @@ class AuthService {
     Cookies.set(EnumTokens.ACCESS_TOKEN, accessToken, {
       domain: 'localhost',
       sameSite: 'strict',
-      expires: 1,
+      expires: 1 / 24, // 1h
+      secure: true,
     });
   }
 
-  private _removeFromStorage() {
+  removeFromStorage() {
     Cookies.remove(EnumTokens.ACCESS_TOKEN);
+    store.dispatch(clearAuthData());
   }
 }
 
