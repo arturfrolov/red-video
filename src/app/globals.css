@@ -4,6 +4,17 @@
   --sidebar-width: 15rem;
 }
 
+@layer base {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px var(--color-bg) inset !important;
+    -webkit-text-fill-color: white !important;
+    caret-color: white !important;
+    transition: background-color 9999s ease-in-out 0s;
+  }
+}
+
 @theme inline {
   --color-primary: #EF4444;
   --color-bg: #191B28;

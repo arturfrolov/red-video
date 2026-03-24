@@ -15,7 +15,7 @@ export function Field({ label, error, registration, ...props }: Props) {
         <span className='block text-gray-400 font-semibold mb-2'>{label}</span>
         <input
           className={cn(
-            'w-full border rounded shadow-sm px-3 py-2 transition-colors focus:outline-none focus:ring-0 focus:border-gray-500',
+            'w-full border rounded shadow-sm px-3 py-2 bg-transparent transition-[border-color] duration-333ms focus:outline-none focus:ring-0 focus:border-gray-500',
             error ? 'border-red-500' : 'border-border'
           )}
           {...props}
