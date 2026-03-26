@@ -1,8 +1,11 @@
 'use client';
 
+import { Controller } from 'react-hook-form';
+
 import { Button } from '@/ui/button/Button';
 import { Field } from '@/ui/field/Field';
 import { Textarea } from '@/ui/field/Textarea';
+import { UploadField } from '@/ui/upload-field/UploadField';
 
 import { useSettings } from '@/app/studio/settings/useSettings';
 
@@ -12,6 +15,7 @@ export function SettingsForm() {
       handleSubmit,
       register,
       formState: { errors },
+      control,
     },
     onSubmit,
     isProfileLoading,
@@ -36,7 +40,7 @@ export function SettingsForm() {
             <Field
               label='Password'
               type='password'
-              registration={register('password', { required: 'Password is required!' })}
+              registration={register('password')}
               error={errors.password?.message}
               placeholder='Enter password:'
               autoComplete='current-password'
@@ -65,11 +69,41 @@ export function SettingsForm() {
               rows={4}
             />
           </div>
+
+          <div>
+            <Controller
+              control={control}
+              name='channel.avatarUrl'
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
+                <UploadField
+                  label='Avatar: '
+                  onChange={onChange}
+                  value={value}
+                  error={error}
+                  folder='avatars'
+                  className='mb-5'
+                />
+              )}
+            />
+            <Controller
+              control={control}
+              name='channel.bannerUrl'
+              render={({ field: { onChange, value }, fieldState: { error } }) => (
+                <UploadField
+                  label='Banner: '
+                  onChange={onChange}
+                  value={value}
+                  error={error}
+                  folder='banners'
+                  aspectRatio='16:9'
+                  overlay='/overlay.png'
+                />
+              )}
+            />
+          </div>
         </div>
 
-        <div></div>
-
-        <div className='mt-6 text-center'>
+        <div className='mt-10 text-center'>
           <Button
             type='submit'
             isLoading={isLoading}
