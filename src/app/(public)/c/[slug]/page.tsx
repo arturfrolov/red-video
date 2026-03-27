@@ -8,7 +8,8 @@ import type { TPageSlugProp } from '@/types/page.types';
 
 export const revalidate = 100;
 
-export default async function ChannelPage({ params: { slug } }: TPageSlugProp) {
+export default async function ChannelPage({ params }: TPageSlugProp) {
+  const { slug } = await params;
   const data = await channelService.bySlug(slug);
   const channel = data.data;
 
