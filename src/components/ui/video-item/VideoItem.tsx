@@ -31,7 +31,7 @@ export function VideoItem({ video, Icon }: Props) {
       <div className='relative mb-1.5'>
         <Link
           href={PAGE.VIDEO(video.id)}
-          className='block relative aspect-video overflow-hidden rounded-md'
+          className='relative block aspect-video overflow-hidden rounded-md'
         >
           <Image
             src={video.thumbnailUrl}
@@ -54,7 +54,7 @@ export function VideoItem({ video, Icon }: Props) {
           />
         </Link>
       </div>
-      <div className='flex justify-between items-center mb-1.5'>
+      <div className='mb-1.5 flex items-center justify-between'>
         <div className='flex items-center gap-0.5'>
           {Icon && (
             <Icon
@@ -62,10 +62,10 @@ export function VideoItem({ video, Icon }: Props) {
               className='text-red-600'
             />
           )}
-          <span className='text-gray-400 text-sm'>{transformViews(video.viewsCount)}</span>
+          <span className='text-sm text-gray-400'>{transformViews(video.viewsCount)}</span>
         </div>
         <div>
-          <span className='text-gray-400 text-xs'>{transformDate(video.createdAt)}</span>
+          <span className='text-xs text-gray-400'>{transformDate(video.createdAt)}</span>
         </div>
       </div>
       <div className='mb-1'>
@@ -81,7 +81,7 @@ export function VideoItem({ video, Icon }: Props) {
           href={PAGE.CHANNEL(video.channel.slug)}
           className='flex items-center gap-1'
         >
-          <span className='text-gray-400 text-sm'>{video.channel.user.name}</span>
+          <span className='text-sm text-gray-400'>{video?.channel?.user?.name}</span>
           {video.channel.isVerified && (
             <span>
               <BadgeCheck

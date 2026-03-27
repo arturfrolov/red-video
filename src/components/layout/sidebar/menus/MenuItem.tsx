@@ -1,24 +1,18 @@
 import cn from 'clsx';
 import Link from 'next/link';
 
-import type { ISidebarItem } from '@/components/layout/sidebar/sidebar.types';
+import type { IMenuItemProps } from '@/components/layout/sidebar/menus/menu.types';
 
-interface Props {
-  item: ISidebarItem;
-  isActive: boolean;
-  isShowedSidebar: boolean;
-}
-
-export function MenuItem({ item, isActive, isShowedSidebar }: Props) {
+export function MenuItem({ item, isActive, isShowedSidebar }: IMenuItemProps) {
   return (
     <li>
       <Link
         href={item.link}
-        className='group py-2 flex items-center gap-5'
+        className='group flex items-center gap-5 py-2'
       >
         <item.icon
           className={cn('shrink-0', {
-            'group-hover:text-primary group-hover:rotate-6 transition': !isActive,
+            'transition group-hover:rotate-6 group-hover:text-primary': !isActive,
             'text-red-400': isActive && !isShowedSidebar,
           })}
         />
@@ -31,7 +25,7 @@ export function MenuItem({ item, isActive, isShowedSidebar }: Props) {
           {item.label}
         </span>
       </Link>
-      {item.isBottomBorder && <span className='h-px bg-border my-5 w-full block'></span>}
+      {item.isBottomBorder && <span className='my-5 block h-px w-full bg-border'></span>}
     </li>
   );
 }

@@ -3,7 +3,6 @@ import type { IVideo } from './video.types';
 
 export interface IChannel {
   id: string;
-  name: string;
   slug: string;
   description: string;
   isVerified: boolean;
@@ -11,6 +10,6 @@ export interface IChannel {
   bannerUrl: string;
   user: IUser;
   videos: IVideo[];
-  subscribers: [];
+  subscribers: IUser[];
   createdAt: string;
 }
