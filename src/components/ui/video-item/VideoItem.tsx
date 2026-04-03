@@ -1,12 +1,14 @@
-import { BadgeCheck, type LucideIcon } from 'lucide-react';
+import { type LucideIcon } from 'lucide-react';
 import * as m from 'motion/react-m';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { VerifiedBadge } from '@/ui/verified-badge/VerifiedBadge';
+
 import { PAGE } from '@/config/public-page.config';
 
+import { transformCount } from '@/utils/transform-count';
 import { transformDate } from '@/utils/transform-date';
-import { transformViews } from '@/utils/transform-views';
 
 import type { IVideo } from '@/types/video.types';
 
@@ -62,7 +64,7 @@ export function VideoItem({ video, Icon }: Props) {
               className='text-red-600'
             />
           )}
-          <span className='text-sm text-gray-400'>{transformViews(video.viewsCount)}</span>
+          <span className='text-sm text-gray-400'>{transformCount(video.viewsCount)} views</span>
         </div>
         <div>
           <span className='text-xs text-gray-400'>{transformDate(video.createdAt)}</span>
@@ -82,14 +84,7 @@ export function VideoItem({ video, Icon }: Props) {
           className='flex items-center gap-1'
         >
           <span className='text-sm text-gray-400'>{video?.channel?.user?.name}</span>
-          {video.channel.isVerified && (
-            <span>
-              <BadgeCheck
-                className='text-green-500'
-                size={15}
-              />
-            </span>
-          )}
+          {video.channel.isVerified && <VerifiedBadge />}
         </Link>
       </div>
     </m.div>

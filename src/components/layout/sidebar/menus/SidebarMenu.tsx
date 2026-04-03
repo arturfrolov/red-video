@@ -26,8 +26,6 @@ export function SidebarMenu({ menu, title, isShowedSidebar }: Props) {
       {title && <div className='mb-3 text-xs font-medium uppercase opacity-40'>{title}</div>}
       <ul>
         {menu.map((menuItem) => {
-          //item.link === PAGE.MY_CHANNEL ? myChannelLink : item.link
-
           const props = {
             item: menuItem,
             isActive: !!match(menuItem.link)(pathname),
