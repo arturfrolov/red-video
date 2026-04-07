@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
-import { Button } from '@/ui/button/Button';
+import { SubscribeButtonClient } from '@/components/SubscribeButtonClient';
+
 import { Heading } from '@/ui/heading/Heading';
 import { VerifiedBadge } from '@/ui/verified-badge/VerifiedBadge';
 
@@ -43,20 +44,24 @@ export default async function ChannelPage({ params }: TPageSlugProp) {
   return (
     <section>
       <div>
-        <Image
-          src={channel.bannerUrl}
-          alt={channel.user.name || 'Channel'}
-          width={1284}
-          height={207}
-          className='rounded-3xl'
-        />
+        <div className='relative h-[249px] w-full overflow-hidden rounded-2xl shadow-md'>
+          <Image
+            src={channel.bannerUrl}
+            alt={channel.user.name || 'Channel'}
+            fill
+            className='object-cover'
+            priority
+            loading='eager'
+          />
+        </div>
         <div className='mt-7 mb-10 flex w-1/2 items-center gap-5'>
           <Image
             src={channel.avatarUrl}
             alt={channel.slug || 'Avatar'}
             width={168}
             height={168}
-            className='shrink-0 rounded-xl'
+            priority
+            className='shrink-0 rounded-xl shadow-md'
           />
           <div>
             <Heading
@@ -78,7 +83,7 @@ export default async function ChannelPage({ params }: TPageSlugProp) {
             <article className='mb-4 w-3/4 text-sm leading-snug text-gray-400'>
               {channel.description}
             </article>
-            <Button>Subscribe</Button>
+            <SubscribeButtonClient slug={slug} />
           </div>
         </div>
       </div>

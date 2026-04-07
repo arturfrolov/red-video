@@ -10,7 +10,7 @@ export async function proxy(request: NextRequest, response: NextResponse) {
   const url = new URL(request.url);
   const pathname = url.pathname;
 
-  if (pathname.includes(STUDIO_PAGE.HOME)) {
+  if (pathname.includes(STUDIO_PAGE.HOME) || pathname.includes(PAGE.SUBSCRIPTIONS)) {
     return protectStudio(request);
   }
 
@@ -20,5 +20,5 @@ export async function proxy(request: NextRequest, response: NextResponse) {
 }
 
 export const config = {
-  matcher: ['/studio/:path*', '/auth/:path*'],
+  matcher: ['/studio/:path*', '/auth/:path*', '/subscriptions/:path*'],
 };
