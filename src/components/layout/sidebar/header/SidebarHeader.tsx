@@ -4,10 +4,11 @@ import { Logo } from '@/components/layout/sidebar/header/Logo';
 
 export function SidebarHeader({ toggleSidebar }: { toggleSidebar: () => void }) {
   return (
-    <div className='flex items-center gap-6 mb-12'>
+    <div className='mb-12 flex items-center gap-6'>
       <button
-        className='opacity-85 hover:opacity-100 transition-opacity cursor-pointer'
+        className='cursor-pointer opacity-85 transition-opacity hover:opacity-100'
         onClick={toggleSidebar}
+        title='Toggle sidebar'
       >
         <Menu />
       </button>

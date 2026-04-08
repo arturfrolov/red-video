@@ -9,6 +9,7 @@ export function MenuItem({ item, isActive, isShowedSidebar }: IMenuItemProps) {
       <Link
         href={item.link}
         className='group flex items-center gap-5 py-2'
+        title={item.label}
       >
         <item.icon
           className={cn('shrink-0', {
