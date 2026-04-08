@@ -4,6 +4,8 @@ import { Noto_Sans } from 'next/font/google';
 
 import { Providers } from '@/providers/Providers';
 
+import { SITE_URL } from '@/constants/constants';
+
 import './globals.css';
 
 const notoSans = Noto_Sans({
@@ -18,6 +20,7 @@ export const metadata: Metadata = {
     template: `%s | Red Video`,
   },
   description: 'Best app for video watching',
+  metadataBase: new URL(SITE_URL),
 };
 
 export default function RootLayout({
@@ -27,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${notoSans.variable} antialiased font-sans text-white bg-bg text-base`}>
+      <body className={`${notoSans.variable} bg-bg font-sans text-base text-white antialiased`}>
         <Providers>
           {children}
           <ReactQueryDevtools initialIsOpen={false} />
