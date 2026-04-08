@@ -1,6 +1,6 @@
 import { axiosClassic } from '@/api/axios';
 
-import type { IExploreVideos, IVideo } from '@/types/video.types';
+import type { IExploreVideos, ISingleVideoResponse, IVideo } from '@/types/video.types';
 
 class VideoService {
   private _VIDEOS = '/videos';
@@ -31,6 +31,10 @@ class VideoService {
         : {}
     );
     return res.data.videos;
+  }
+
+  byPublicId(publicId?: string | null) {
+    return axiosClassic.get<ISingleVideoResponse>(`${this._VIDEOS}/by-publicId/${publicId}`);
   }
 }
 

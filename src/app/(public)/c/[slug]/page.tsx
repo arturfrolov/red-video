@@ -74,7 +74,7 @@ export default async function ChannelPage({ params }: TPageSlugProp) {
               </span>
             </Heading>
             <div className='mb-2 flex items-center gap-1 text-[0.9rem] text-gray-400'>
-              <span>@{channel.slug}</span>
+              <span>/{channel.slug}</span>
               <span>•</span>
               <span>{transformCount(channel.subscribers.length)} subscribers</span>
               <span>•</span>

@@ -32,7 +32,7 @@ export function VideoItem({ video, Icon }: Props) {
     >
       <div className='relative mb-1.5'>
         <Link
-          href={PAGE.VIDEO(video.id)}
+          href={PAGE.VIDEO(video.publicId)}
           className='relative block aspect-video overflow-hidden rounded-md'
         >
           <Image
@@ -72,7 +72,7 @@ export function VideoItem({ video, Icon }: Props) {
       </div>
       <div className='mb-1'>
         <Link
-          href={PAGE.VIDEO(video.id)}
+          href={PAGE.VIDEO(video.publicId)}
           className='line-clamp-2 leading-[1.3]'
         >
           {video.title}
