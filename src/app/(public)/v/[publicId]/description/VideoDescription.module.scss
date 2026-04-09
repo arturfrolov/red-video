@@ -1,0 +1,13 @@
+@reference "../../../../globals.css";
+
+.article {
+  @apply text-[0.91rem] leading-snug text-gray-200;
+
+  > p {
+    @apply py-2;
+  }
+
+  a {
+    @apply text-blue-400 transition-colors border-b border-b-transparent hover:border-blue-400;
+  }
+}

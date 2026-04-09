@@ -20,7 +20,7 @@
   --color-bg: #191B28;
   --color-border: #2A3439;
   --font-sans: var(--font-noto-sans);
-  --spacing-layout: 1.2rem;
+  --spacing-layout: 1.4rem;
   --duration-default: 333ms;
   --ease-default: ease-in-out;
   --default-transition-duration: var(--duration-default);
