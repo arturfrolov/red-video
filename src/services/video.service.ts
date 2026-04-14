@@ -1,26 +1,12 @@
 import { axiosClassic } from '@/api/axios';
 
-import type { IExploreVideos, ISingleVideoResponse, IVideo } from '@/types/video.types';
+import type { ISingleVideoResponse, IVideo, IVideosPagination } from '@/types/video.types';
 
 class VideoService {
   private _VIDEOS = '/videos';
-  async getExploreVideos() {
-    const res = await axiosClassic.get<IExploreVideos>(`${this._VIDEOS}/explore`);
-    return res.data.videos;
-  }
 
-  async getTrendingVideos() {
-    const res = await axiosClassic.get<IVideo[]>(`${this._VIDEOS}/trending`);
-    return res.data;
-  }
-
-  async getVideoGames() {
-    const res = await axiosClassic.get<IExploreVideos>(`${this._VIDEOS}/games`);
-    return res.data.videos;
-  }
-
-  async getAll(searchTerm?: string | null) {
-    const res = await axiosClassic.get<IExploreVideos>(
+  getAll(searchTerm?: string | null) {
+    return axiosClassic.get<IVideosPagination>(
       this._VIDEOS,
       searchTerm
         ? {
@@ -30,11 +16,23 @@ class VideoService {
           }
         : {}
     );
-    return res.data.videos;
   }
 
   byPublicId(publicId?: string | null) {
     return axiosClassic.get<ISingleVideoResponse>(`${this._VIDEOS}/by-publicId/${publicId}`);
+  }
+
+  getExploreVideos() {
+    return axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/explore`);
+  }
+
+  async getTrendingVideos() {
+    const res = await axiosClassic.get<IVideo[]>(`${this._VIDEOS}/trending`);
+    return res.data;
+  }
+
+  getVideoGames() {
+    return axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/games`);
   }
 }
 

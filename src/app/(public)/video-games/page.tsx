@@ -1,4 +1,4 @@
-import { Flame, Gamepad2 } from 'lucide-react';
+import { Gamepad2 } from 'lucide-react';
 import type { Metadata } from 'next';
 
 import { Heading } from '@/ui/heading/Heading';
@@ -30,8 +30,8 @@ export default async function VideoGamesPage() {
     <section>
       <Heading Icon={Gamepad2}>Video games</Heading>
       <div className='grid-6-cols'>
-        {data?.length ? (
-          data.map((video) => (
+        {data?.data?.videos.length ? (
+          data?.data?.videos.map((video) => (
             <VideoItem
               key={video.id}
               video={video}

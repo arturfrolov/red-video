@@ -32,8 +32,8 @@ export function SearchPage() {
             count={6}
             className='h-45 rounded-md'
           />
-        ) : data?.length ? (
-          data.map((video) => (
+        ) : data?.data?.videos.length ? (
+          data?.data?.videos.map((video) => (
             <VideoItem
               key={video.id}
               video={video}
