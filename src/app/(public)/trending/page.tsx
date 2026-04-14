@@ -30,8 +30,8 @@ export default async function TrendingPage() {
     <section>
       <Heading Icon={Flame}>Trending</Heading>
       <div className='grid-6-cols'>
-        {data?.length ? (
-          data.map((video) => (
+        {data?.data.length ? (
+          data?.data.map((video) => (
             <VideoItem
               key={video.id}
               video={video}

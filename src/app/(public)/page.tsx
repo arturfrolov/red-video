@@ -29,11 +29,11 @@ export default async function Home() {
 
   return (
     <section>
-      {!!data?.length && (
+      {!!data?.data.length && (
         <section className='mb-10'>
           <Heading Icon={Flame}>Trending</Heading>
           <div className='grid-6-cols'>
-            {data.map((video) => (
+            {data?.data.map((video) => (
               <VideoItem
                 key={video.id}
                 video={video}

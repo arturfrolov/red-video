@@ -26,9 +26,8 @@ class VideoService {
     return axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/explore`);
   }
 
-  async getTrendingVideos() {
-    const res = await axiosClassic.get<IVideo[]>(`${this._VIDEOS}/trending`);
-    return res.data;
+  getTrendingVideos() {
+    return axiosClassic.get<IVideo[]>(`${this._VIDEOS}/trending`);
   }
 
   getVideoGames() {
