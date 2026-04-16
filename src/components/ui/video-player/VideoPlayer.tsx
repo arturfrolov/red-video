@@ -15,10 +15,17 @@ interface Props {
   fileName: string;
   isTheaterMode: boolean;
   toggleTheaterMode: () => void;
+  maxResolution: EnumVideoPlayerQuality;
 }
 
-export function VideoPlayer({ mediaClassName, fileName, isTheaterMode, toggleTheaterMode }: Props) {
-  const { state, fn, playerRef } = useVideoPlayer({ fileName });
+export function VideoPlayer({
+  mediaClassName,
+  fileName,
+  isTheaterMode,
+  toggleTheaterMode,
+  maxResolution,
+}: Props) {
+  const { state, fn, playerRef } = useVideoPlayer({ fileName, toggleTheaterMode });
 
   const videoSrc = `/uploads/videos/${EnumVideoPlayerQuality['1080p']}/${fileName}`;
 
@@ -38,52 +45,58 @@ export function VideoPlayer({ mediaClassName, fileName, isTheaterMode, toggleThe
         />
       </div>
 
-      <div className='absolute inset-x-3 bottom-3 sm:inset-x-5 sm:bottom-5'>
-        <PlayerProgressBar progress={state.progress} />
+      <div
+        className='absolute inset-x-3 bottom-3 grid grid-cols-[7fr_1fr] gap-7 sm:inset-x-5
+          sm:bottom-5'
+      >
+        <div className='flex items-center gap-3 sm:gap-6'>
+          <button
+            onClick={fn.togglePlayPause}
+            className='cursor-pointer transition-colors hover:text-primary'
+          >
+            {state.isPlaying ? <Pause /> : <Play />}
+          </button>
 
-        <div className='mt-3 flex items-center justify-between gap-3 sm:mt-4'>
-          <div className='flex min-w-0 items-center gap-3 sm:gap-4'>
-            <button
-              onClick={fn.togglePlayPause}
-              className='cursor-pointer transition-colors hover:text-primary'
-            >
-              {state.isPlaying ? <Pause /> : <Play />}
-            </button>
+          <PlayerProgressBar
+            currentTime={state.currentTime}
+            duration={state.videoTime}
+            onSeek={fn.onSeek}
+          />
 
-            <div className='text-sm'>{getVideoTime(state.videoTime)}</div>
-          </div>
+          <div className='text-sm'>{getVideoTime(state.videoTime)}</div>
+        </div>
 
-          <div className='flex items-center gap-3 sm:gap-5'>
-            <div className='hidden md:block'>
-              <VolumeControl
-                changeVolume={fn.changeVolume}
-                value={state.volume}
-                isMuted={state.isMuted}
-                toggleMute={fn.toggleMute}
-              />
-            </div>
-
-            <SelectQuality
-              currentValue={state.quality}
-              onChange={fn.changeQuality}
+        <div className='flex items-center gap-3 sm:gap-5'>
+          <div className='hidden md:block'>
+            <VolumeControl
+              changeVolume={fn.changeVolume}
+              value={state.volume}
+              isMuted={state.isMuted}
+              toggleMute={fn.toggleMute}
             />
-
-            <button
-              className={cn('cursor-pointer transition-colors hover:text-primary', {
-                'text-primary': isTheaterMode,
-              })}
-              onClick={toggleTheaterMode}
-            >
-              <RectangleHorizontal />
-            </button>
-
-            <button
-              onClick={fn.toggleFullScreen}
-              className='cursor-pointer transition-colors hover:text-primary'
-            >
-              <Maximize />
-            </button>
           </div>
+
+          <SelectQuality
+            currentValue={state.quality}
+            onChange={fn.changeQuality}
+            maxResolution={maxResolution}
+          />
+
+          <button
+            className={cn('cursor-pointer transition-colors hover:text-primary', {
+              'text-primary': isTheaterMode,
+            })}
+            onClick={toggleTheaterMode}
+          >
+            <RectangleHorizontal />
+          </button>
+
+          <button
+            onClick={fn.toggleFullScreen}
+            className='cursor-pointer transition-colors hover:text-primary'
+          >
+            <Maximize />
+          </button>
         </div>
       </div>
     </div>

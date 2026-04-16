@@ -3,8 +3,11 @@ import { type RefObject } from 'react';
 import type { HTMLCustomVideoElement } from '@/ui/video-player/video-player.types';
 
 const SKIP_TIME_SECONDS = 10;
+
+export type TSkipTime = 'forward' | 'backward';
+
 export function useSkipTime(playerRef: RefObject<HTMLCustomVideoElement | null>) {
-  const skipTime = (type?: 'forward' | 'backward') => {
+  const skipTime = (type?: TSkipTime) => {
     if (!playerRef.current?.currentTime) return;
 
     if (type === 'forward') {

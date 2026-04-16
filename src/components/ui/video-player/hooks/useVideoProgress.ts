@@ -39,5 +39,6 @@ export function useVideoProgress(playerRef: RefObject<HTMLCustomVideoElement | n
     currentTime,
     progress,
     videoTime,
+    setCurrentTime,
   };
 }

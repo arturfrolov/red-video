@@ -30,6 +30,7 @@ export function SingleVideo({ video }: Props) {
       fileName={video.videoFileName}
       isTheaterMode={isTheaterMode}
       toggleTheaterMode={toggleTheaterMode}
+      maxResolution={video.maxResolution}
     />
   );
 

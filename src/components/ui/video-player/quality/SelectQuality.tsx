@@ -1,5 +1,6 @@
 'use client';
 
+import cn from 'clsx';
 import { AnimatePresence } from 'motion/react';
 import * as m from 'motion/react-m';
 
@@ -11,10 +12,13 @@ import { useOutside } from '@/hooks/useOutside';
 interface Props {
   currentValue: EnumVideoPlayerQuality;
   onChange: (quality: EnumVideoPlayerQuality) => void;
+  maxResolution: EnumVideoPlayerQuality;
 }
 
-export function SelectQuality({ currentValue, onChange }: Props) {
+export function SelectQuality({ currentValue, onChange, maxResolution }: Props) {
   const { ref, setIsShow, isShow } = useOutside(false);
+
+  const availableQualities = VIDEO_QUALITIES.slice(VIDEO_QUALITIES.indexOf(maxResolution));
 
   return (
     <div
@@ -35,26 +39,28 @@ export function SelectQuality({ currentValue, onChange }: Props) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3 }}
-            className='absolute right-0 bottom-full z-10 rounded bg-white/10 px-4 py-2 shadow'
+            className='absolute right-0 bottom-[125%] z-10 rounded bg-gray-800 px-4 py-2 shadow'
           >
-            {VIDEO_QUALITIES.map((quality) =>
-              quality === currentValue ? null : (
-                <li
-                  key={quality}
-                  className='mb-1'
+            {availableQualities.map((quality) => (
+              <li
+                key={quality}
+                className='mb-1'
+              >
+                <button
+                  onClick={() => {
+                    onChange(quality);
+                    setIsShow(false);
+                  }}
+                  className={cn('border-b border-b-transparent transition-colors', {
+                    'cursor-pointer hover:text-primary': quality !== currentValue,
+                    'cursor-auto border-b-white': quality === currentValue,
+                  })}
+                  disabled={quality === currentValue}
                 >
-                  <button
-                    onClick={() => {
-                      onChange(quality);
-                      setIsShow(false);
-                    }}
-                    className='cursor-pointer transition-colors hover:text-primary'
-                  >
-                    {quality}
-                  </button>
-                </li>
-              )
-            )}
+                  {quality}
+                </button>
+              </li>
+            ))}
           </m.ul>
         )}
       </AnimatePresence>

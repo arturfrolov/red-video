@@ -1,8 +1,10 @@
 import { useRef } from 'react';
 
 import { useFullScreen } from '@/ui/video-player/hooks/useFullScreen';
+import { useOnSeek } from '@/ui/video-player/hooks/useOnSeek';
 import { usePlayPause } from '@/ui/video-player/hooks/usePlayPause';
 import { useSkipTime } from '@/ui/video-player/hooks/useSkipTime';
+import { useVideoHotkeys } from '@/ui/video-player/hooks/useVideoHotkeys';
 import { useVideoProgress } from '@/ui/video-player/hooks/useVideoProgress';
 import { useVideoQuality } from '@/ui/video-player/hooks/useVideoQuality';
 import { useVideoVolume } from '@/ui/video-player/hooks/useVideoVolume';
@@ -10,13 +12,14 @@ import { type HTMLCustomVideoElement } from '@/ui/video-player/video-player.type
 
 interface Props {
   fileName: string;
+  toggleTheaterMode: () => void;
 }
 
-export function useVideoPlayer({ fileName }: Props) {
+export function useVideoPlayer({ fileName, toggleTheaterMode }: Props) {
   const playerRef = useRef<HTMLCustomVideoElement>(null);
 
   const { isPlaying, togglePlayPause, setIsPlaying } = usePlayPause(playerRef);
-  const { progress, currentTime, videoTime } = useVideoProgress(playerRef);
+  const { progress, currentTime, videoTime, setCurrentTime } = useVideoProgress(playerRef);
   const { changeQuality, quality } = useVideoQuality(playerRef, {
     fileName,
     currentTime,
@@ -25,6 +28,19 @@ export function useVideoPlayer({ fileName }: Props) {
   const { toggleFullScreen } = useFullScreen(playerRef);
   const { skipTime } = useSkipTime(playerRef);
   const { isMuted, toggleMute, volume, changeVolume } = useVideoVolume(playerRef);
+  const { onSeek } = useOnSeek(playerRef, setCurrentTime);
+
+  const fn = {
+    togglePlayPause,
+    changeQuality,
+    toggleFullScreen,
+    skipTime,
+    changeVolume,
+    toggleMute,
+    onSeek,
+  };
+
+  useVideoHotkeys({ volume, toggleTheaterMode, ...fn });
 
   return {
     state: {
@@ -36,14 +52,7 @@ export function useVideoPlayer({ fileName }: Props) {
       isMuted,
       volume,
     },
-    fn: {
-      togglePlayPause,
-      changeQuality,
-      toggleFullScreen,
-      skipTime,
-      changeVolume,
-      toggleMute,
-    },
+    fn,
     playerRef,
   };
 }
