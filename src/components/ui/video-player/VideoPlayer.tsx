@@ -1,5 +1,6 @@
 'use client';
 
+import cn from 'clsx';
 import { Maximize, Pause, Play, RectangleHorizontal } from 'lucide-react';
 
 import { useVideoPlayer } from '@/ui/video-player/hooks/useVideoPlayer';
@@ -9,66 +10,80 @@ import { EnumVideoPlayerQuality } from '@/ui/video-player/video-player.types';
 import { getVideoTime } from '@/ui/video-player/video-player.util';
 import { VolumeControl } from '@/ui/video-player/volume/VolumeControl';
 
-export function VideoPlayer({
-  fileName,
-  toggleTheaterMode,
-}: {
+interface Props {
+  mediaClassName?: string;
   fileName: string;
+  isTheaterMode: boolean;
   toggleTheaterMode: () => void;
-}) {
+}
+
+export function VideoPlayer({ mediaClassName, fileName, isTheaterMode, toggleTheaterMode }: Props) {
   const { state, fn, playerRef } = useVideoPlayer({ fileName });
 
+  const videoSrc = `/uploads/videos/${EnumVideoPlayerQuality['1080p']}/${fileName}`;
+
   return (
-    <div className='relative mb-5 overflow-hidden rounded-2xl'>
-      <video
-        ref={playerRef}
-        className='aspect-video'
-        controls={false}
-        src={`/uploads/videos/${EnumVideoPlayerQuality['1080p']}/${fileName}`}
-        preload='metadata'
-      />
+    <div
+      className={cn('relative overflow-hidden rounded-2xl', {
+        'bg-black': isTheaterMode,
+      })}
+    >
+      <div className={cn('w-full', mediaClassName)}>
+        <video
+          ref={playerRef}
+          className='block aspect-video w-full'
+          controls={false}
+          src={videoSrc}
+          preload='metadata'
+        />
+      </div>
 
-      <div className='absolute right-5 bottom-5 left-5 flex items-center justify-between'>
-        <div className='flex items-center gap-4'>
-          <button
-            onClick={fn.togglePlayPause}
-            className='cursor-pointer transition-colors hover:text-primary'
-          >
-            {state.isPlaying ? <Pause /> : <Play />}
-          </button>
+      <div className='absolute inset-x-3 bottom-3 sm:inset-x-5 sm:bottom-5'>
+        <PlayerProgressBar progress={state.progress} />
 
-          <PlayerProgressBar progress={state.progress} />
+        <div className='mt-3 flex items-center justify-between gap-3 sm:mt-4'>
+          <div className='flex min-w-0 items-center gap-3 sm:gap-4'>
+            <button
+              onClick={fn.togglePlayPause}
+              className='cursor-pointer transition-colors hover:text-primary'
+            >
+              {state.isPlaying ? <Pause /> : <Play />}
+            </button>
 
-          <div>
-            <span>{getVideoTime(state.videoTime)}</span>
+            <div className='text-sm'>{getVideoTime(state.videoTime)}</div>
           </div>
-        </div>
-        <div className='flex items-center gap-5'>
-          <VolumeControl
-            changeVolume={fn.changeVolume}
-            value={state.volume}
-            isMuted={state.isMuted}
-            toggleMute={fn.toggleMute}
-          />
 
-          <SelectQuality
-            currentValue={state.quality}
-            onChange={fn.changeQuality}
-          />
+          <div className='flex items-center gap-3 sm:gap-5'>
+            <div className='hidden md:block'>
+              <VolumeControl
+                changeVolume={fn.changeVolume}
+                value={state.volume}
+                isMuted={state.isMuted}
+                toggleMute={fn.toggleMute}
+              />
+            </div>
 
-          <button
-            className='cursor-pointer transition-colors hover:text-primary'
-            onClick={toggleTheaterMode}
-          >
-            <RectangleHorizontal />
-          </button>
+            <SelectQuality
+              currentValue={state.quality}
+              onChange={fn.changeQuality}
+            />
 
-          <button
-            onClick={fn.toggleFullScreen}
-            className='cursor-pointer transition-colors hover:text-primary'
-          >
-            <Maximize />
-          </button>
+            <button
+              className={cn('cursor-pointer transition-colors hover:text-primary', {
+                'text-primary': isTheaterMode,
+              })}
+              onClick={toggleTheaterMode}
+            >
+              <RectangleHorizontal />
+            </button>
+
+            <button
+              onClick={fn.toggleFullScreen}
+              className='cursor-pointer transition-colors hover:text-primary'
+            >
+              <Maximize />
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -14,8 +14,8 @@ import type { ISingleVideoResponse } from '@/types/video.types';
 
 export function VideoChannel({ video }: { video: ISingleVideoResponse }) {
   return (
-    <div className='mb-6 flex items-center justify-between'>
-      <div className='flex items-center gap-2.5'>
+    <div className='mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between'>
+      <div className='flex min-w-0 items-center gap-2.5'>
         <Link href={PAGE.CHANNEL(video.channel.slug)}>
           <Image
             src={video.channel.avatarUrl}
@@ -26,13 +26,13 @@ export function VideoChannel({ video }: { video: ISingleVideoResponse }) {
             className='shrink-0 rounded shadow-md'
           />
         </Link>
-        <div>
+        <div className='min-w-0'>
           <Link href={PAGE.CHANNEL(video.channel.slug)}>
             <Heading
               className='mb-0'
               classNameHeading='text-lg'
             >
-              <span className='flex items-center gap-2'>
+              <span className='flex items-center gap-2 truncate'>
                 {video.channel.user.name}
                 {video.channel.isVerified && <VerifiedBadge size={14} />}
               </span>

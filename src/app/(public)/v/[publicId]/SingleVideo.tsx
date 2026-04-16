@@ -18,44 +18,65 @@ interface Props {
 
 export function SingleVideo({ video }: Props) {
   const [isTheaterMode, setIsTheaterMode] = useState(false);
+  const hasSimilarVideos = video.similarVideos.length > 0;
+
+  const toggleTheaterMode = () => setIsTheaterMode((prev) => !prev);
+
+  const player = (
+    <VideoPlayer
+      mediaClassName={cn({
+        'mx-auto w-full xl:max-w-[min(100%,calc((100dvh-8rem)*16/9))]': isTheaterMode,
+      })}
+      fileName={video.videoFileName}
+      isTheaterMode={isTheaterMode}
+      toggleTheaterMode={toggleTheaterMode}
+    />
+  );
 
   return (
-    <section className='relative grid grid-cols-[3fr_.8fr] gap-20'>
-      <div>
-        <div className={cn(isTheaterMode ? 'absolute top-0 left-0 w-full' : 'relative')}>
-          <VideoPlayer
-            fileName={video.videoFileName}
-            toggleTheaterMode={() => {
-              setIsTheaterMode(!isTheaterMode);
-            }}
-          />
+    <section className='space-y-5 xl:space-y-6'>
+      {isTheaterMode && player}
+
+      <div className='flex flex-col gap-5 xl:flex-row xl:items-start xl:gap-8'>
+        <div className='min-w-0 flex-1 space-y-3 sm:space-y-4'>
+          {!isTheaterMode && player}
+          <VideoDetails video={video} />
         </div>
 
-        <div
-          className={cn('mb-6 flex items-start justify-between border-b border-border pb-6', {
-            'pt-222': isTheaterMode,
-          })}
-        >
-          <div>
-            <Heading
-              classNameHeading='text-xl'
-              className='mb-1 leading-none'
-            >
-              {video.title}
-            </Heading>
-            <div className='text-gray-400'>{video.viewsCount.toLocaleString('en-US')} views</div>
-          </div>
-          <VideoActions video={video} />
-        </div>
-        <VideoChannel video={video} />
-        <VideoDescription description={video.description} />
+        {hasSimilarVideos && (
+          <aside className='w-full xl:w-[clamp(20rem,24vw,26rem)] xl:shrink-0'>
+            <div className='xl:sticky xl:top-6'>
+              <SimilarVideos videos={video.similarVideos} />
+            </div>
+          </aside>
+        )}
       </div>
-
-      {!!video.similarVideos.length && (
-        <div className={cn({ 'pt-222': isTheaterMode })}>
-          <SimilarVideos videos={video.similarVideos} />
-        </div>
-      )}
     </section>
+  );
+}
+
+function VideoDetails({ video }: Props) {
+  return (
+    <div className='min-w-0 flex-1'>
+      <header
+        className='mb-6 flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-start
+          md:justify-between'
+      >
+        <div className='min-w-0'>
+          <Heading
+            className='mb-1 leading-tight'
+            classNameHeading='text-xl'
+          >
+            {video.title}
+          </Heading>
+          <div className='text-gray-400'>{video.viewsCount.toLocaleString('en-US')} views</div>
+        </div>
+
+        <VideoActions video={video} />
+      </header>
+
+      <VideoChannel video={video} />
+      <VideoDescription description={video.description} />
+    </div>
   );
 }

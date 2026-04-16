@@ -1,9 +1,9 @@
 export function PlayerProgressBar({ progress }: { progress: number }) {
   return (
-    <div className='absolute bottom-10 left-0 w-full bg-gray-200'>
+    <div className='w-full bg-gray-200/80'>
       <div
         style={{ width: `${progress}%` }}
-        className='relative h-1 bg-primary'
+        className='h-1 bg-primary'
       ></div>
     </div>
   );

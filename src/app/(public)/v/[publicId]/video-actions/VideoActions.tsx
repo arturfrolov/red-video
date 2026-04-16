@@ -53,7 +53,7 @@ export function VideoActions({ video }: { video: ISingleVideoResponse }) {
   });
 
   return (
-    <div className='flex items-center gap-7'>
+    <div className='flex flex-wrap items-center gap-4 sm:gap-7'>
       <button
         className='flex cursor-pointer items-center gap-1 opacity-80 transition-opacity
           hover:opacity-100'
