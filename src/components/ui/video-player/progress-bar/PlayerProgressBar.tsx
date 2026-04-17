@@ -38,6 +38,19 @@ interface Props {
   onSeek: (time: number) => void;
 }
 
+const sliderStyles = {
+  track: { backgroundColor: '#ef4444', height: 5 },
+  rail: { backgroundColor: 'rgb(196 196 196 / 60%)', height: 5 },
+  handle: {
+    borderColor: 'transparent',
+    height: 16,
+    width: 16,
+    backgroundColor: 'transparent',
+    outline: 'none',
+    boxShadow: 'none',
+  },
+};
+
 export function PlayerProgressBar({ currentTime, onSeek, duration }: Props) {
   return (
     <div className='w-full'>
@@ -50,19 +63,9 @@ export function PlayerProgressBar({ currentTime, onSeek, duration }: Props) {
             onSeek(value);
           }
         }}
+        step={0.2}
         handleRender={handleRender}
-        styles={{
-          track: { backgroundColor: '#ef4444', height: 5 },
-          rail: { backgroundColor: 'rgb(196 196 196 / 60%)', height: 5 },
-          handle: {
-            borderColor: 'transparent',
-            height: 16,
-            width: 16,
-            backgroundColor: 'transparent',
-            outline: 'none',
-            boxShadow: 'none',
-          },
-        }}
+        styles={sliderStyles}
       />
     </div>
   );

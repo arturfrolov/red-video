@@ -8,7 +8,7 @@ export type TSkipTime = 'forward' | 'backward';
 
 export function useSkipTime(playerRef: RefObject<HTMLCustomVideoElement | null>) {
   const skipTime = (type?: TSkipTime) => {
-    if (!playerRef.current?.currentTime) return;
+    if (!playerRef.current) return;
 
     if (type === 'forward') {
       playerRef.current.currentTime += SKIP_TIME_SECONDS;

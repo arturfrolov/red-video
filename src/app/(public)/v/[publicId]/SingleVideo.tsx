@@ -21,45 +21,61 @@ export function SingleVideo({ video }: Props) {
   const hasSimilarVideos = video.similarVideos.length > 0;
 
   const toggleTheaterMode = () => setIsTheaterMode((prev) => !prev);
-
-  const player = (
-    <VideoPlayer
-      mediaClassName={cn({
-        'mx-auto w-full xl:max-w-[min(100%,calc((100dvh-8rem)*16/9))]': isTheaterMode,
-      })}
-      fileName={video.videoFileName}
-      isTheaterMode={isTheaterMode}
-      toggleTheaterMode={toggleTheaterMode}
-      maxResolution={video.maxResolution}
-    />
-  );
+  const isTheaterWithSidebar = isTheaterMode && hasSimilarVideos;
 
   return (
-    <section className='space-y-5 xl:space-y-6'>
-      {isTheaterMode && player}
-
-      <div className='flex flex-col gap-5 xl:flex-row xl:items-start xl:gap-8'>
-        <div className='min-w-0 flex-1 space-y-3 sm:space-y-4'>
-          {!isTheaterMode && player}
-          <VideoDetails video={video} />
+    <section
+      className={cn('flex flex-col gap-5 xl:gap-8', {
+        'xl:flex-row xl:items-start': hasSimilarVideos && !isTheaterMode,
+        'xl:flex-row xl:flex-wrap xl:items-start': isTheaterWithSidebar,
+      })}
+    >
+      <div
+        className={cn('flex min-w-0 flex-col gap-3 sm:gap-4', {
+          'xl:flex-1': !isTheaterWithSidebar,
+          'xl:contents': isTheaterWithSidebar,
+        })}
+      >
+        <div
+          className={cn('min-w-0', {
+            'xl:basis-full': isTheaterWithSidebar,
+          })}
+        >
+          <VideoPlayer
+            mediaClassName={cn({
+              'mx-auto w-full xl:max-w-[min(100%,calc((100dvh-8rem)*16/9))]': isTheaterMode,
+            })}
+            fileName={video.videoFileName}
+            isTheaterMode={isTheaterMode}
+            toggleTheaterMode={toggleTheaterMode}
+            maxResolution={video.maxResolution}
+          />
         </div>
 
-        {hasSimilarVideos && (
-          <aside className='w-full xl:w-[clamp(20rem,24vw,26rem)] xl:shrink-0'>
-            <div className='xl:sticky xl:top-6'>
-              <SimilarVideos videos={video.similarVideos} />
-            </div>
-          </aside>
-        )}
+        <div
+          className={cn('min-w-0', {
+            'xl:flex-1 xl:basis-0': isTheaterWithSidebar,
+          })}
+        >
+          <VideoDetails video={video} />
+        </div>
       </div>
+
+      {hasSimilarVideos && (
+        <aside className='w-full xl:w-[clamp(20rem,24vw,26rem)] xl:shrink-0'>
+          <div className={cn({ 'xl:sticky xl:top-6': !isTheaterMode })}>
+            <SimilarVideos videos={video.similarVideos} />
+          </div>
+        </aside>
+      )}
     </section>
   );
 }
 
 function VideoDetails({ video }: Props) {
   return (
-    <div className='min-w-0 flex-1'>
-      <header
+    <div className='min-w-0'>
+      <div
         className='mb-6 flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-start
           md:justify-between'
       >
@@ -74,7 +90,7 @@ function VideoDetails({ video }: Props) {
         </div>
 
         <VideoActions video={video} />
-      </header>
+      </div>
 
       <VideoChannel video={video} />
       <VideoDescription description={video.description} />
