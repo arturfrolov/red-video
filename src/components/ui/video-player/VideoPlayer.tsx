@@ -1,7 +1,7 @@
 'use client';
 
 import cn from 'clsx';
-import { Maximize, Pause, Play, RectangleHorizontal } from 'lucide-react';
+import { Lightbulb, LightbulbOff, Maximize, Pause, Play, RectangleHorizontal } from 'lucide-react';
 
 import { useVideoPlayer } from '@/ui/video-player/hooks/useVideoPlayer';
 import { PlayerProgressBar } from '@/ui/video-player/progress-bar/PlayerProgressBar';
@@ -25,20 +25,32 @@ export function VideoPlayer({
   toggleTheaterMode,
   maxResolution,
 }: Props) {
-  const { state, fn, playerRef } = useVideoPlayer({ fileName, toggleTheaterMode });
+  const { state, fn, playerRef, bgRef } = useVideoPlayer({ fileName, toggleTheaterMode });
 
   const videoSrc = `/uploads/videos/${EnumVideoPlayerQuality['1080p']}/${fileName}`;
 
   return (
     <div
-      className={cn('relative overflow-hidden rounded-2xl', {
+      className={cn('relative rounded-2xl', {
         'bg-black': isTheaterMode,
       })}
     >
-      <div className={cn('w-full', mediaClassName)}>
+      <div className={cn('relative w-full', mediaClassName)}>
+        {state.isLightingMode && (
+          <video
+            ref={bgRef}
+            className='absolute top-0 left-0 h-full w-full scale-[1.02] object-cover
+              mix-blend-lighten blur-3xl brightness-90 contrast-125 saturate-150 filter'
+            src={`/uploads/videos/${EnumVideoPlayerQuality['720p']}/${fileName}`}
+            muted
+          />
+        )}
+
         <video
           ref={playerRef}
-          className='block aspect-video w-full'
+          className={cn('relative z-1 block aspect-video w-full rounded-2xl', {
+            'rounded-none': isTheaterMode,
+          })}
           controls={false}
           src={videoSrc}
           preload='metadata'
@@ -46,7 +58,7 @@ export function VideoPlayer({
       </div>
 
       <div
-        className='absolute inset-x-3 bottom-3 grid grid-cols-[7fr_1fr] gap-7 sm:inset-x-5
+        className='absolute inset-x-3 bottom-3 z-1 grid grid-cols-[7fr_1fr] gap-7 sm:inset-x-5
           sm:bottom-5'
       >
         <div className='flex items-center gap-3 sm:gap-6'>
@@ -81,6 +93,14 @@ export function VideoPlayer({
             onChange={fn.changeQuality}
             maxResolution={maxResolution}
           />
+
+          <button
+            className='cursor-pointer transition-colors hover:text-primary'
+            onClick={fn.toggleLightingMode}
+            title={state.isLightingMode ? 'Off lighting' : 'On lighting'}
+          >
+            {state.isLightingMode ? <Lightbulb /> : <LightbulbOff />}
+          </button>
 
           <button
             className={cn('cursor-pointer transition-colors hover:text-primary', {

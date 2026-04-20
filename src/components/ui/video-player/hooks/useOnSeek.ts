@@ -4,12 +4,17 @@ import type { HTMLCustomVideoElement } from '@/ui/video-player/video-player.type
 
 export function useOnSeek(
   playerRef: RefObject<HTMLCustomVideoElement | null>,
+  bgRef: RefObject<HTMLCustomVideoElement | null>,
   setCurrentTime: Dispatch<SetStateAction<number>>
 ) {
   const onSeek = (time: number) => {
     if (!playerRef.current) return;
 
     playerRef.current.currentTime = time;
+
+    if (bgRef?.current) {
+      bgRef.current.currentTime = time;
+    }
     setCurrentTime(time);
   };
 

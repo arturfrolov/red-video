@@ -25,7 +25,7 @@ export function SingleVideo({ video }: Props) {
 
   return (
     <section
-      className={cn('flex flex-col gap-5 xl:gap-8', {
+      className={cn('flex flex-col gap-5 xl:gap-16', {
         'xl:flex-row xl:items-start': hasSimilarVideos && !isTheaterMode,
         'xl:flex-row xl:flex-wrap xl:items-start': isTheaterWithSidebar,
       })}
