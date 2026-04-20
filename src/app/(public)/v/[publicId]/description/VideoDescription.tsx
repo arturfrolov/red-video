@@ -11,7 +11,7 @@ export function VideoDescription({ description }: { description: string }) {
   const { isShouldShowToggle, initialContent } = processHtmlContent(description, 3);
 
   return (
-    <div className='relative mb-4 rounded-lg bg-gray-800 px-3 py-1.5'>
+    <div className='relative mb-7 rounded-lg bg-gray-800 px-3 py-1.5'>
       <article className={styles.article}>
         {parse(isExpanded ? description : initialContent)}
       </article>

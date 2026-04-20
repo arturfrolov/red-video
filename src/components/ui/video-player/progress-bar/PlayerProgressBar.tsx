@@ -24,7 +24,7 @@ const handleRender = (node: ReactElement, props: IHandleProps) => {
       placement='top'
       key={index}
       classNames={{
-        root: 'tooltip-simple-text',
+        root: 'tooltip-simple-text z-1',
       }}
     >
       {node}

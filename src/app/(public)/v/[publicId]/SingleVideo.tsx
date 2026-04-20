@@ -7,6 +7,7 @@ import { Heading } from '@/ui/heading/Heading';
 import { VideoPlayer } from '@/ui/video-player/VideoPlayer';
 
 import { SimilarVideos } from '@/app/(public)/v/[publicId]/SimilarVideos';
+import { Comments } from '@/app/(public)/v/[publicId]/comments/Comments';
 import { VideoDescription } from '@/app/(public)/v/[publicId]/description/VideoDescription';
 import { VideoActions } from '@/app/(public)/v/[publicId]/video-actions/VideoActions';
 import { VideoChannel } from '@/app/(public)/v/[publicId]/video-channel/VideoChannel';
@@ -74,7 +75,7 @@ export function SingleVideo({ video }: Props) {
 
 function VideoDetails({ video }: Props) {
   return (
-    <div className='min-w-0'>
+    <div>
       <div
         className='mb-6 flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-start
           md:justify-between'
@@ -94,6 +95,7 @@ function VideoDetails({ video }: Props) {
 
       <VideoChannel video={video} />
       <VideoDescription description={video.description} />
+      <Comments video={video} />
     </div>
   );
 }

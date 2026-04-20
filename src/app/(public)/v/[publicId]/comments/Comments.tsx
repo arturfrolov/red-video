@@ -1,0 +1,31 @@
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
+
+import { CommentItem } from '@/app/(public)/v/[publicId]/comments/CommentItem';
+import { commentService } from '@/services/comment.service';
+import type { ISingleVideoResponse } from '@/types/video.types';
+
+interface Props {
+  video: ISingleVideoResponse;
+}
+
+export function Comments({ video }: Props) {
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['comments', video.id],
+    queryFn: () => commentService.byVideoPublicId(video.publicId),
+    initialData: video.comments,
+  });
+
+  return (
+    <div className='border-t border-t-border pt-7'>
+      {!!data &&
+        data.map((comment) => (
+          <CommentItem
+            key={comment.id}
+            comment={comment}
+          />
+        ))}
+    </div>
+  );
+}

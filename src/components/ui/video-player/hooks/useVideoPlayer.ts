@@ -19,7 +19,7 @@ export function useVideoPlayer({ fileName, toggleTheaterMode }: Props) {
   const playerRef = useRef<HTMLCustomVideoElement>(null);
   const bgRef = useRef<HTMLCustomVideoElement>(null);
 
-  const [isLightingMode, setIsLightingMode] = useState(false);
+  const [isLightingMode, setIsLightingMode] = useState(true);
 
   const { isPlaying, togglePlayPause, setIsPlaying } = usePlayPause(playerRef, bgRef);
   const { progress, currentTime, videoTime, setCurrentTime } = useVideoProgress(playerRef);
