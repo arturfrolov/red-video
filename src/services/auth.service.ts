@@ -33,8 +33,8 @@ class AuthService {
   }
 
   async initializeAuth() {
-    const accessToken = Cookies.get(EnumTokens.ACCESS_TOKEN);
-    if (accessToken) return;
+    const initialStore = store.getState().auth;
+    if (initialStore.user) return;
 
     try {
       await this.getNewTokens();

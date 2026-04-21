@@ -1,5 +1,9 @@
+'use client';
+
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 import { Heading } from '@/ui/heading/Heading';
 import { VerifiedBadge } from '@/ui/verified-badge/VerifiedBadge';
@@ -8,15 +12,23 @@ import { PAGE } from '@/config/public-page.config';
 
 import { transformDate } from '@/utils/transform-date';
 
-import { CommentActions } from '@/app/(public)/v/[publicId]/comments/CommentActions';
 import { getInitials } from '@/app/(public)/v/[publicId]/comments/get-initials';
 import type { ISingleVideoResponse } from '@/types/video.types';
 
+const DynamicCommentActions = dynamic(
+  () =>
+    import('@/app/(public)/v/[publicId]/comments/CommentActions').then((mod) => mod.CommentActions),
+  { ssr: false }
+);
+
 interface Props {
   comment: ISingleVideoResponse['comments'][0];
+  refetch: () => void;
 }
 
-export function CommentItem({ comment }: Props) {
+export function CommentItem({ comment, refetch }: Props) {
+  const [text, setText] = useState(comment.text);
+
   return (
     <div className='flex items-start gap-3.5 border-b border-b-border/50 py-5 last:border-none'>
       {comment.user?.channel ? (
@@ -37,7 +49,7 @@ export function CommentItem({ comment }: Props) {
           {getInitials(comment.user.name || 'Anonym')}
         </div>
       )}
-      <div>
+      <div className='w-full'>
         <div className='mb-3 flex items-center gap-2'>
           <Heading
             className='mb-0'
@@ -52,9 +64,20 @@ export function CommentItem({ comment }: Props) {
           <div className='text-xs text-gray-500'>{transformDate(comment.createdAt)}</div>
         </div>
 
-        <div className='text-sm leading-snug text-gray-300'>{comment.text}</div>
+        <div>
+          <textarea
+            className='field-sizing-content w-full resize-none border border-transparent
+              bg-transparent text-sm leading-snug text-gray-300 outline-none focus:border-border'
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+          />
+        </div>
 
-        <CommentActions />
+        <DynamicCommentActions
+          comment={comment}
+          refetch={refetch}
+          newText={text}
+        />
       </div>
     </div>
   );
