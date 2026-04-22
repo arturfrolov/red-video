@@ -22,8 +22,12 @@ class VideoService {
     return axiosClassic.get<ISingleVideoResponse>(`${this._VIDEOS}/by-publicId/${publicId}`);
   }
 
-  getExploreVideos() {
-    return axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/explore`);
+  getExploreVideos(userId?: string) {
+    return axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/explore`, {
+      params: {
+        userId,
+      },
+    });
   }
 
   getTrendingVideos() {
