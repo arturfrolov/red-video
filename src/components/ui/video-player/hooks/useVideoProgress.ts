@@ -13,37 +13,43 @@ export function useVideoProgress(playerRef: RefObject<HTMLCustomVideoElement | n
     if (!player) return;
 
     const handleLoadedMetadata = () => {
-      const { currentTime, progress, originalTime } = getVideoInfo(playerRef.current);
+      const { currentTime, progress, originalTime } = getVideoInfo(player);
 
       setVideoTime(originalTime);
       setCurrentTime(currentTime);
       setProgress(progress);
     };
 
-    player?.addEventListener('loadedmetadata', handleLoadedMetadata);
+    player.addEventListener('loadedmetadata', handleLoadedMetadata);
+
+    // Если метаданные загружены, вызываем обработчик сразу.
+    if (player.readyState >= 1) {
+      handleLoadedMetadata();
+    }
 
     return () => {
-      player?.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      player.removeEventListener('loadedmetadata', handleLoadedMetadata);
     };
   }, [playerRef]);
 
   useEffect(() => {
     const player = playerRef?.current;
-    const updateProgress = () => {
-      if (!player) return;
+    if (!player) return;
 
+    const updateProgress = () => {
       const { currentTime, progress } = getVideoInfo(player);
 
       setCurrentTime(currentTime);
       setProgress(progress);
     };
 
-    player?.addEventListener('timeupdate', updateProgress);
+    player.addEventListener('timeupdate', updateProgress);
 
     return () => {
-      player?.removeEventListener('timeupdate', updateProgress);
+      player.removeEventListener('timeupdate', updateProgress);
     };
   }, [playerRef]);
+
   return {
     currentTime,
     progress,

@@ -72,6 +72,7 @@ export function VideoPlayer({
           <PlayerProgressBar
             currentTime={state.currentTime}
             duration={state.videoTime}
+            progress={state.progress}
             onSeek={fn.onSeek}
           />
 

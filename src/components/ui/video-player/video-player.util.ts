@@ -2,7 +2,7 @@ import type { HTMLCustomVideoElement } from '@/ui/video-player/video-player.type
 
 export function getVideoInfo(video: HTMLCustomVideoElement | null) {
   const currentTime = video?.currentTime || 0;
-  const originalTime = video?.duration || 0;
+  const originalTime = video?.duration || 1;
 
   return {
     currentTime,

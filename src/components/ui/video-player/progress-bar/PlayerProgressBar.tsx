@@ -1,71 +1,65 @@
-'use client';
-
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
-import Tooltip from 'rc-tooltip';
-import type { ReactElement } from 'react';
+import cn from 'clsx';
+import { type ChangeEvent, useState } from 'react';
 
 import { getVideoTime } from '@/ui/video-player/video-player.util';
-
-interface IHandleProps {
-  value: number;
-  dragging: boolean;
-  index: number;
-}
-
-const handleRender = (node: ReactElement, props: IHandleProps) => {
-  const { value, index, dragging } = props;
-
-  return (
-    <Tooltip
-      prefixCls='rc-slider-tooltip'
-      overlay={getVideoTime(value)}
-      visible={dragging}
-      placement='top'
-      key={index}
-      classNames={{
-        root: 'tooltip-simple-text z-1',
-      }}
-    >
-      {node}
-    </Tooltip>
-  );
-};
 
 interface Props {
   currentTime: number;
   duration: number;
+  progress: number;
   onSeek: (time: number) => void;
 }
 
-const sliderStyles = {
-  track: { backgroundColor: '#ef4444', height: 5 },
-  rail: { backgroundColor: 'rgb(196 196 196 / 60%)', height: 5 },
-  handle: {
-    borderColor: 'transparent',
-    height: 16,
-    width: 16,
-    backgroundColor: 'transparent',
-    outline: 'none',
-    boxShadow: 'none',
-  },
-};
+export function PlayerProgressBar({ currentTime, progress, onSeek, duration }: Props) {
+  const [isDragging, setIsDragging] = useState(false);
 
-export function PlayerProgressBar({ currentTime, onSeek, duration }: Props) {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value);
+    onSeek(value);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
   return (
-    <div className='w-full'>
-      <Slider
+    <div
+      className='relative flex w-full items-center rounded-lg'
+      style={{
+        backgroundColor: 'rgb(196 196 196 / 60%)',
+      }}
+    >
+      <div
+        className='absolute top-0 left-0 h-1.5 rounded-lg'
+        style={{
+          width: `${progress}%`,
+          backgroundColor: 'rgb(239 68 68)',
+        }}
+      />
+
+      <div
+        className={cn(
+          'absolute -top-7 left-0 text-base text-white transition-opacity duration-700',
+          isDragging ? 'opacity-100' : 'opacity-0'
+        )}
+        style={{
+          left: `calc(${progress}% - 20px)`,
+        }}
+      >
+        {getVideoTime(currentTime)}
+      </div>
+
+      <input
+        type='range'
         min={0}
         max={duration}
+        step={0.01}
         value={currentTime}
-        onChange={(value) => {
-          if (typeof value === 'number') {
-            onSeek(value);
-          }
-        }}
-        step={0.2}
-        handleRender={handleRender}
-        styles={sliderStyles}
+        onChange={handleChange}
+        onMouseDown={() => setIsDragging(true)}
+        onMouseUp={handleMouseUp}
+        onTouchEnd={handleMouseUp}
+        className='pointer-events-auto h-1.5 w-full cursor-pointer appearance-none opacity-0'
       />
     </div>
   );
