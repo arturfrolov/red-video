@@ -1,6 +1,6 @@
 import type { IChannel } from '@/types/channel.types';
 import type { IWatchHistory } from '@/types/history.types';
-import type { IVideo } from '@/types/video.types';
+import type { IFullVideo, IVideo } from '@/types/video.types';
 
 export interface IUser {
   id: string;
@@ -17,7 +17,7 @@ export interface IFullUser extends IUser {
 
 export interface IVideoLike {
   id: string;
-  videoId: string;
+  video: IFullVideo;
   userId: string;
 }
 

@@ -3,7 +3,8 @@ import * as m from 'motion/react-m';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { VerifiedBadge } from '@/ui/verified-badge/VerifiedBadge';
+import { VideoChannelName } from '@/ui/video-item/VideoChannelName';
+import { VideoItemTitle } from '@/ui/video-item/VideoItemTitle';
 
 import { PAGE } from '@/config/public-page.config';
 
@@ -71,21 +72,10 @@ export function VideoItem({ video, Icon }: Props) {
         </div>
       </div>
       <div className='mb-1'>
-        <Link
-          href={PAGE.VIDEO(video.publicId)}
-          className='line-clamp-2 leading-[1.3]'
-        >
-          {video.title}
-        </Link>
+        <VideoItemTitle video={video} />
       </div>
       <div>
-        <Link
-          href={PAGE.CHANNEL(video.channel.slug)}
-          className='flex items-center gap-1'
-        >
-          <span className='text-sm text-gray-400'>{video?.channel?.user?.name}</span>
-          {video.channel.isVerified && <VerifiedBadge />}
-        </Link>
+        <VideoChannelName channel={video.channel} />
       </div>
     </m.div>
   );

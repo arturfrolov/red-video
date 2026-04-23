@@ -4,7 +4,7 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   isLoading?: boolean;
   children: ReactNode;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'simple';
 }
 
 export function Button({ children, isLoading, variant = 'primary', ...props }: Props) {
@@ -15,6 +15,7 @@ export function Button({ children, isLoading, variant = 'primary', ...props }: P
         {
           'bg-primary text-white hover:bg-red-400': variant === 'primary',
           'bg-gray-600 text-white hover:bg-gray-500': variant === 'secondary',
+          'rounded bg-border font-medium hover:bg-gray-700/95': variant === 'simple',
         }
       )}
       disabled={isLoading || props.disabled}

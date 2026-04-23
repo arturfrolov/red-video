@@ -51,8 +51,8 @@ export const SIDEBAR_DATA: ISidebarItem[] = [
   },
   {
     icon: FolderHeart,
-    label: 'Linked videos',
-    link: PAGE.LINKED_VIDEOS,
+    label: 'Liked videos',
+    link: PAGE.LIKED_VIDEOS,
     isBottomBorder: true,
   },
 ];

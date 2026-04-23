@@ -9,6 +9,7 @@ import { VideoPlayer } from '@/ui/video-player/VideoPlayer';
 import { SimilarVideos } from '@/app/(public)/v/[publicId]/SimilarVideos';
 import { Comments } from '@/app/(public)/v/[publicId]/comments/Comments';
 import { VideoDescription } from '@/app/(public)/v/[publicId]/description/VideoDescription';
+import { useUpdateViews } from '@/app/(public)/v/[publicId]/hooks/useUpdateViews';
 import { VideoActions } from '@/app/(public)/v/[publicId]/video-actions/VideoActions';
 import { VideoChannel } from '@/app/(public)/v/[publicId]/video-channel/VideoChannel';
 import type { ISingleVideoResponse } from '@/types/video.types';
@@ -20,6 +21,8 @@ interface Props {
 export function SingleVideo({ video }: Props) {
   const [isTheaterMode, setIsTheaterMode] = useState(false);
   const hasSimilarVideos = video.similarVideos.length > 0;
+
+  useUpdateViews({ video });
 
   const toggleTheaterMode = () => setIsTheaterMode((prev) => !prev);
   const isTheaterWithSidebar = isTheaterMode && hasSimilarVideos;

@@ -37,6 +37,10 @@ class VideoService {
   getVideoGames() {
     return axiosClassic.get<IVideosPagination>(`${this._VIDEOS}/games`);
   }
+
+  updateViews(publicId: string) {
+    return axiosClassic.put<IVideo>(`${this._VIDEOS}/update-views-count/${publicId}`);
+  }
 }
 
 export const videoService = new VideoService();

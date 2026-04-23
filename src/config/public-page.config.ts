@@ -6,7 +6,7 @@ class PublicPage {
   MY_CHANNEL = '/my-channel';
   SUBSCRIPTIONS = '/subscriptions';
   HISTORY = '/history';
-  LINKED_VIDEOS = '/linked-videos';
+  LIKED_VIDEOS = '/liked-videos';
   FEEDBACK = '/feedback';
 
   VIDEO(path: string) {
