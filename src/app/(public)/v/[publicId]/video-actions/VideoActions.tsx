@@ -1,13 +1,14 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { Heart, ListPlus } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { startTransition, useEffect, useState } from 'react';
 
 import { useProfile } from '@/hooks/useProfile';
 
 import { transformCount } from '@/utils/transform-count';
 
+import { SaveToPlaylist } from '@/app/(public)/v/[publicId]/video-actions/SaveToPlaylist';
 import { userService } from '@/services/user.service';
 import type { ISingleVideoResponse } from '@/types/video.types';
 
@@ -54,13 +55,7 @@ export function VideoActions({ video }: { video: ISingleVideoResponse }) {
 
   return (
     <div className='flex flex-wrap items-center gap-4 sm:gap-7'>
-      <button
-        className='flex cursor-pointer items-center gap-1 opacity-80 transition-opacity
-          hover:opacity-100'
-      >
-        <ListPlus size={20} />
-        Save
-      </button>
+      <SaveToPlaylist video={video} />
       <button
         className='flex cursor-pointer items-center gap-1.5 text-primary opacity-80
           transition-opacity hover:opacity-100'

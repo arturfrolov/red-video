@@ -1,12 +1,15 @@
 class PublicPage {
   AUTH = '/auth';
+
   HOME = '/';
   TRENDING = '/trending';
   VIDEO_GAMES = '/video-games';
-  MY_CHANNEL = '/my-channel';
   SUBSCRIPTIONS = '/subscriptions';
+
+  MY_CHANNEL = '/my-channel';
   HISTORY = '/history';
   LIKED_VIDEOS = '/liked-videos';
+
   FEEDBACK = '/feedback';
 
   VIDEO(path: string) {
@@ -14,6 +17,10 @@ class PublicPage {
   }
   CHANNEL(path: string) {
     return `/c/${path}`;
+  }
+
+  PLAYLISTS(path?: string) {
+    return `/playlists${path ? `/${path}` : ''}`;
   }
 
   SEARCH(searchTerm: string) {
