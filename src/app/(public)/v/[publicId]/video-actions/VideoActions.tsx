@@ -9,7 +9,7 @@ import { useProfile } from '@/hooks/useProfile';
 import { transformCount } from '@/utils/transform-count';
 
 import { SaveToPlaylist } from '@/app/(public)/v/[publicId]/video-actions/SaveToPlaylist';
-import { userService } from '@/services/user.service';
+import { userService } from '@/services/studio/user.service';
 import type { ISingleVideoResponse } from '@/types/video.types';
 
 export function VideoActions({ video }: { video: ISingleVideoResponse }) {
