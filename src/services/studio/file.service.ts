@@ -1,8 +1,6 @@
-import type { EnumVideoPlayerQuality } from '@/ui/video-player/video-player.types';
-
 import { instance } from '@/api/axios';
 
-import type { IFileResponse } from '@/types/file.types';
+import type { IFileResponse, IProgressProcessingResponse } from '@/types/file.types';
 
 class FileService {
   private _UPLOAD_FILE = '/upload-file';
@@ -17,7 +15,7 @@ class FileService {
   }
 
   getProcessingStatus(fileName: string) {
-    return instance.get<number>(`${this._UPLOAD_FILE}/status/${fileName}`);
+    return instance.get<IProgressProcessingResponse>(`${this._UPLOAD_FILE}/status/${fileName}`);
   }
 }
 

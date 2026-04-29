@@ -3,7 +3,8 @@ import { useId } from 'react';
 import type { FieldError } from 'react-hook-form';
 
 import { ImagePreview } from '@/ui/upload-field/ImagePreview';
-import { useUpload } from '@/ui/upload-field/useUpload';
+
+import { useUpload } from './hooks/useUpload';
 
 interface Props {
   folder?: string;
