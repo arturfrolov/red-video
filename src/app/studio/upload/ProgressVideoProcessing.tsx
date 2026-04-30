@@ -1,6 +1,8 @@
+'use client';
+
 import { useQuery } from '@tanstack/react-query';
 import * as m from 'motion/react-m';
-import { type Dispatch, type SetStateAction, useEffect, useState } from 'react';
+import { type Dispatch, type SetStateAction, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 import { fileService } from '@/services/studio/file.service';
@@ -11,9 +13,7 @@ interface Props {
 }
 
 export function ProgressVideoProcessing({ fileName, setIsReadyToPublish }: Props) {
-  const [progress, setProgress] = useState(0);
-
-  const { data: processingData, isSuccess } = useQuery({
+  const { data: progress = 0 } = useQuery({
     queryKey: ['processing-video', fileName],
     queryFn: () => fileService.getProcessingStatus(fileName),
     select(data) {
@@ -27,14 +27,13 @@ export function ProgressVideoProcessing({ fileName, setIsReadyToPublish }: Props
   });
 
   useEffect(() => {
-    if (!processingData) return;
-    setProgress(processingData);
+    if (progress !== 100) return;
 
-    if (processingData === 100) {
-      setIsReadyToPublish(true);
-      toast.success('Video processed successfully!');
-    }
-  }, [isSuccess, processingData, setIsReadyToPublish]);
+    setIsReadyToPublish(true);
+    toast.success('Video processed successfully!', {
+      id: `video-processing-completed-${fileName}`,
+    });
+  }, [fileName, progress, setIsReadyToPublish]);
 
   return (
     progress > 0 && (
