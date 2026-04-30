@@ -6,12 +6,10 @@ interface Props {
   isLoading: boolean;
   value?: string;
   overlay?: string;
-  aspectRatio?: '16:9' | '1:1';
+  sizePreview?: [number, number];
 }
-export function ImagePreview({ isLoading, value, overlay, aspectRatio }: Props) {
-  const isWidescreenRatio = aspectRatio === '16:9';
-  const width = isWidescreenRatio ? 446 : 100;
-  const height = isWidescreenRatio ? 250 : 100;
+export function ImagePreview({ isLoading, value, overlay, sizePreview = [100, 100] }: Props) {
+  const [width, height] = sizePreview;
 
   return (
     <div className='mt-3'>

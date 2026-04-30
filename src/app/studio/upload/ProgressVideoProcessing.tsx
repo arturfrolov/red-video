@@ -1,7 +1,6 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import * as m from 'motion/react-m';
 import { type Dispatch, type SetStateAction, useEffect } from 'react';
 import toast from 'react-hot-toast';
 
@@ -9,10 +8,15 @@ import { fileService } from '@/services/studio/file.service';
 
 interface Props {
   fileName: string;
+  isReadyToPublish: boolean;
   setIsReadyToPublish: Dispatch<SetStateAction<boolean>>;
 }
 
-export function ProgressVideoProcessing({ fileName, setIsReadyToPublish }: Props) {
+export function ProgressVideoProcessing({
+  fileName,
+  isReadyToPublish,
+  setIsReadyToPublish,
+}: Props) {
   const { data: progress = 0 } = useQuery({
     queryKey: ['processing-video', fileName],
     queryFn: () => fileService.getProcessingStatus(fileName),
@@ -21,9 +25,9 @@ export function ProgressVideoProcessing({ fileName, setIsReadyToPublish }: Props
     },
     refetchInterval(query) {
       const queryProgress = query.state.data?.data;
-      return queryProgress !== undefined && queryProgress.status < 100 ? 5000 : false;
+      return queryProgress !== undefined && queryProgress.status < 100 ? 4000 : false;
     },
-    enabled: !!fileName,
+    enabled: !!fileName && !isReadyToPublish,
   });
 
   useEffect(() => {
@@ -37,11 +41,22 @@ export function ProgressVideoProcessing({ fileName, setIsReadyToPublish }: Props
 
   return (
     progress > 0 && (
-      <m.div
-        initial={{ width: 0 }}
-        animate={{ width: `${progress}%` }}
-        className='h-2 rounded-xl bg-primary transition-all duration-300'
-      />
+      <div
+        className='relative mb-6 flex w-full items-center justify-center overflow-hidden rounded-md
+          py-0.5 text-sm font-medium'
+        style={{
+          backgroundColor: 'rgb(196 196 196 / 12%)',
+        }}
+      >
+        <div
+          className='absolute inset-0 h-full animate-pulse bg-linear-to-r from-gray-500 to-gray-600
+            transition-all'
+          style={{
+            width: progress ? `${progress}%` : '0%',
+          }}
+        />
+        <span className='relative'>Processing video {Math.round(progress)}%</span>
+      </div>
     )
   );
 }

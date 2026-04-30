@@ -11,7 +11,7 @@ import { ProgressVideoProcessing } from '@/app/studio/upload/ProgressVideoProces
 import { VideoForm } from '@/app/studio/upload/VideoForm';
 import type { IVideoFormData } from '@/types/studio-video.types';
 
-export function UploadVideoForm() {
+export function UploadVideoMain() {
   const form = useForm<IVideoFormData>({
     mode: 'onChange',
   });
@@ -27,7 +27,7 @@ export function UploadVideoForm() {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.3 }}
-        className='relative w-5/6 max-w-4xl'
+        className='relative w-5/6 max-w-5xl'
       >
         <div className='rounded-lg bg-gray-800 p-6'>
           <Heading
@@ -37,11 +37,12 @@ export function UploadVideoForm() {
             Upload a video
           </Heading>
 
-          <DragNDropVideo reset={form.reset} />
+          {!fileName && <DragNDropVideo reset={form.reset} />}
 
           <ProgressVideoProcessing
             fileName={fileName}
             setIsReadyToPublish={setIsReadyToPublish}
+            isReadyToPublish={isReadyToPublish}
           />
 
           {!!fileName && (
