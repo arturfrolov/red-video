@@ -6,9 +6,9 @@ import { useForm } from 'react-hook-form';
 
 import { Heading } from '@/ui/heading/Heading';
 
+import { CreateVideoForm } from '@/app/studio/upload/CreateVideoForm';
 import { DragNDropVideo } from '@/app/studio/upload/DragNDropVideo';
 import { ProgressVideoProcessing } from '@/app/studio/upload/ProgressVideoProcessing';
-import { VideoForm } from '@/app/studio/upload/VideoForm';
 import type { IVideoFormData } from '@/types/studio-video.types';
 
 export function UploadVideoMain() {
@@ -46,7 +46,7 @@ export function UploadVideoMain() {
           />
 
           {!!fileName && (
-            <VideoForm
+            <CreateVideoForm
               form={form}
               isReadyToPublish={isReadyToPublish}
             />
