@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Edit } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
@@ -19,6 +19,7 @@ import type { IVideoFormData } from '@/types/studio-video.types';
 export function EditVideoForm() {
   const { id } = useParams();
   const router = useRouter();
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const form = useForm<IVideoFormData>({
     mode: 'onChange',
@@ -50,6 +51,7 @@ export function EditVideoForm() {
     mutationKey: ['edit video'],
     mutationFn: (data: IVideoFormData) => studioVideoService.update(id as string, data),
     onSuccess() {
+      setIsRedirecting(true);
       router.push(STUDIO_PAGE.HOME);
       queryClient.invalidateQueries({
         queryKey: ['studioVideoList'],
@@ -65,6 +67,8 @@ export function EditVideoForm() {
     mutate(data);
   };
 
+  const isFormPending = isLoading || isPending || isRedirecting;
+
   return (
     <div className='mx-auto max-w-7xl'>
       <Heading
@@ -77,12 +81,12 @@ export function EditVideoForm() {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <VideoForm
           form={form}
-          isPending={isLoading || isPending}
+          isPending={isFormPending}
         />
         <div className='mt-4 text-right'>
           <Button
             type='submit'
-            isLoading={isPending}
+            isLoading={isPending || isRedirecting}
           >
             Update
           </Button>
