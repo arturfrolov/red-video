@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { NO_INDEX_PAGE } from '@/constants/seo.constants';
 
-import { LikedVideosPage } from '@/app/(user)/liked-videos/LikedVideosPage';
+import { LikedVideosPage } from '@/app/my/liked-videos/LikedVideosPage';
 
 export const metadata: Metadata = {
   title: 'Liked videos',

@@ -8,9 +8,9 @@ import { SkeletonLoader } from '@/ui/skeleton-loader/SkeletonLoader';
 
 import { useOutside } from '@/hooks/useOutside';
 
-import { CreatePlaylist } from '@/app/(user)/playlists/CreatePlaylist';
-import { PlaylistItem } from '@/app/(user)/playlists/PlaylistItem';
-import { useUserPlaylists } from '@/app/(user)/playlists/hooks/useUserPlaylists';
+import { CreatePlaylist } from '@/app/my/playlists/CreatePlaylist';
+import { PlaylistItem } from '@/app/my/playlists/PlaylistItem';
+import { useUserPlaylists } from '@/app/my/playlists/hooks/useUserPlaylists';
 
 export function PlaylistsPage() {
   const { isShow, ref, setIsShow } = useOutside(false);

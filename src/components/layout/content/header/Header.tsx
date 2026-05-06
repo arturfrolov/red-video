@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic from 'next/dynamic';
 
 import { HeaderLinks } from '@/components/layout/content/header/HeaderLinks';
@@ -10,12 +12,12 @@ const DynamicHeaderProfile = dynamic(
     import('@/components/layout/content/header/profile/HeaderProfile').then(
       (mod) => mod.HeaderProfile
     ),
-  { ssr: false, loading: () => <SkeletonLoader className='w-10 rounded-md mb-0' /> }
+  { ssr: false, loading: () => <SkeletonLoader className='mb-0 w-10 rounded-md' /> }
 );
 
 export function Header() {
   return (
-    <header className='p-layout border-b border-border flex items-center justify-between'>
+    <header className='flex items-center justify-between border-b border-border p-layout'>
       <SearchField />
       <div className='flex items-center gap-8'>
         <HeaderLinks />

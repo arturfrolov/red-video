@@ -22,7 +22,7 @@ export function SubscriptionsPage() {
         {isLoading ? (
           <SkeletonLoader
             count={6}
-            className='h-45 rounded-md'
+            className='h-48 rounded-md'
           />
         ) : profile?.subscribedVideos?.length ? (
           profile?.subscribedVideos?.map((video) => (

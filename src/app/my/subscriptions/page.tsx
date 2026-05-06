@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 import { NO_INDEX_PAGE } from '@/constants/seo.constants';
 
-import { SubscriptionsPage } from '@/app/(user)/subscriptions/SubscriptionsPage';
+import { SubscriptionsPage } from '@/app/my/subscriptions/SubscriptionsPage';
 
 export const metadata: Metadata = {
   title: 'Subscriptions',

@@ -16,9 +16,10 @@ import type { IVideo } from '@/types/video.types';
 interface Props {
   video: IVideo;
   Icon?: LucideIcon;
+  isImagePriority?: boolean;
 }
 
-export function VideoItem({ video, Icon }: Props) {
+export function VideoItem({ video, Icon, isImagePriority }: Props) {
   return (
     <m.div
       style={{ willChange: 'transform' }}
@@ -42,6 +43,7 @@ export function VideoItem({ video, Icon }: Props) {
             sizes='(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw'
             alt={video.title}
             className='object-cover'
+            priority={isImagePriority}
           />
         </Link>
         <Link
@@ -54,6 +56,7 @@ export function VideoItem({ video, Icon }: Props) {
             height={35}
             alt={video.channel.user.name ? video.channel.user.name : 'Channel avatar'}
             className='rounded-full shadow'
+            priority={isImagePriority}
           />
         </Link>
       </div>

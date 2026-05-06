@@ -26,18 +26,20 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const data = await videoService.getTrendingVideos();
+  const trendingVideos = data?.data.slice(0, 6);
 
   return (
     <section>
-      {!!data?.data.length && (
+      {!!trendingVideos.length && (
         <section className='mb-10'>
           <Heading Icon={Flame}>Trending</Heading>
           <div className='grid-6-cols'>
-            {data?.data.map((video) => (
+            {trendingVideos.map((video) => (
               <VideoItem
                 key={video.id}
                 video={video}
                 Icon={Flame}
+                isImagePriority
               />
             ))}
           </div>

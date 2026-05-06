@@ -30,7 +30,7 @@ export function SearchPage() {
         {isLoading ? (
           <SkeletonLoader
             count={6}
-            className='h-45 rounded-md'
+            className='h-48 rounded-md'
           />
         ) : data?.data?.videos.length ? (
           data?.data?.videos.map((video) => (

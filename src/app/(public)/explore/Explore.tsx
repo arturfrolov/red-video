@@ -46,7 +46,7 @@ export function Explore() {
         {isLoading && !allVideos.length ? (
           <SkeletonLoader
             count={6}
-            className='h-45 rounded-md'
+            className='h-48 rounded-md'
           />
         ) : (
           allVideos.map((video) => (
@@ -60,7 +60,7 @@ export function Explore() {
         {isFetchingNextPage && (
           <SkeletonLoader
             count={6}
-            className='h-45 rounded-md'
+            className='h-48 rounded-md'
           />
         )}
       </section>
