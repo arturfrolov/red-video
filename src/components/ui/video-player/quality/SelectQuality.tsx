@@ -28,6 +28,7 @@ export function SelectQuality({ currentValue, onChange, maxResolution }: Props) 
       <button
         className='cursor-pointer transition-colors hover:text-primary'
         onClick={() => setIsShow(!isShow)}
+        aria-label='Select quality'
       >
         {currentValue}
       </button>

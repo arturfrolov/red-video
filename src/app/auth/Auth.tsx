@@ -11,6 +11,7 @@ import { Field } from '@/ui/field/Field';
 import { SkeletonLoader } from '@/ui/skeleton-loader/SkeletonLoader';
 
 import type { IAuthForm } from './auth-form.types';
+import { SwitchAuth } from '@/app/auth/SwitchAuth';
 import { useAuthForm } from '@/app/auth/useAuthForm';
 
 import styles from './captcha.module.scss';
@@ -32,27 +33,17 @@ export function Auth() {
   const { isLoading, onSubmit, recaptchaRef } = useAuthForm(isLogin ? 'login' : 'register', reset);
 
   return (
-    <div className='w-screen h-screen flex items-center justify-center'>
-      <div className='w-1/6 p-layout border-border border rounded'>
-        <div className='text-center mb-1'>
+    <div className='flex h-screen w-screen items-center justify-center'>
+      <div className='w-1/6 rounded border border-border p-layout'>
+        <div className='mb-1 text-center'>
           <Logo />
         </div>
-        <div className='flex justify-center mb-6'>
-          <button
-            type='button'
-            className={`px-4 py-2 font-semibold cursor-pointer ${isLogin ? 'text-primary border-b-2 border-primary' : 'text-gray-600'}`}
-            onClick={() => setIsLogin(true)}
-          >
-            Login
-          </button>
-          <button
-            type='button'
-            className={`px-4 py-2 font-semibold cursor-pointer ${!isLogin ? 'text-primary border-b-2 border-primary' : 'text-gray-600'}`}
-            onClick={() => setIsLogin(false)}
-          >
-            Registration
-          </button>
-        </div>
+
+        <SwitchAuth
+          isLogin={isLogin}
+          setIsLogin={setIsLogin}
+        />
+
         <form onSubmit={handleSubmit(onSubmit)}>
           {isLoading ? (
             <SkeletonLoader count={3} />
@@ -94,7 +85,7 @@ export function Auth() {
                 theme='light'
                 className={styles.recaptcha}
               />
-              <div className='text-center mt-6'>
+              <div className='mt-6 text-center'>
                 <Button
                   type='submit'
                   isLoading={isLoading}

@@ -58,6 +58,7 @@ export function AddCommentsForm({ refetch, videoId }: Props) {
         <button
           className='h-max cursor-pointer rounded bg-border py-2.5 font-medium'
           disabled={isPending}
+          aria-label='Comment'
         >
           {isPending ? 'Commenting..' : 'Comment'}
         </button>

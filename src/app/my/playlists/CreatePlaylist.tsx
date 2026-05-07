@@ -3,7 +3,6 @@ import { X } from 'lucide-react';
 import * as m from 'motion/react-m';
 import type { RefObject } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import { useHotkeys } from 'react-hotkeys-hook';
 
 import { Button } from '@/ui/button/Button';
@@ -38,13 +37,15 @@ export function CreatePlaylist({ refetch, onClose, ref }: Props) {
   const { mutate, isPending } = useMutation({
     mutationKey: ['create playlist'],
     mutationFn: (data: IPlaylistData) => playlistService.createPlaylist(data),
-    onSuccess: () => {
+    async onSuccess() {
       refetch();
       reset();
       onClose();
+      const { toast } = await import('react-hot-toast');
       toast.success('Playlist created successfully');
     },
-    onError: (error) => {
+    async onError(error) {
+      const { toast } = await import('react-hot-toast');
       toast.error(error.message);
     },
   });

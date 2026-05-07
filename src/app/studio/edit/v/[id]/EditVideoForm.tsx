@@ -5,7 +5,6 @@ import { Edit } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { type SubmitHandler, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 
 import { Button } from '@/ui/button/Button';
 import { Heading } from '@/ui/heading/Heading';
@@ -50,15 +49,17 @@ export function EditVideoForm() {
   const { mutate, isPending } = useMutation({
     mutationKey: ['edit video'],
     mutationFn: (data: IVideoFormData) => studioVideoService.update(id as string, data),
-    onSuccess() {
+    async onSuccess() {
       setIsRedirecting(true);
       router.push(STUDIO_PAGE.HOME);
       queryClient.invalidateQueries({
         queryKey: ['studioVideoList'],
       });
+      const { toast } = await import('react-hot-toast');
       toast.success('Video successfully updated!');
     },
-    onError() {
+    async onError() {
+      const { toast } = await import('react-hot-toast');
       toast.error('Video updating has error!');
     },
   });

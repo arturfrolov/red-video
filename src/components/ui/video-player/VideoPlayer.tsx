@@ -65,6 +65,7 @@ export function VideoPlayer({
           <button
             onClick={fn.togglePlayPause}
             className='cursor-pointer transition-colors hover:text-primary'
+            aria-label='Play/Pause'
           >
             {state.isPlaying ? <Pause /> : <Play />}
           </button>
@@ -99,6 +100,7 @@ export function VideoPlayer({
             className='cursor-pointer transition-colors hover:text-primary'
             onClick={fn.toggleLightingMode}
             title={state.isLightingMode ? 'Off lighting' : 'On lighting'}
+            aria-label={state.isLightingMode ? 'Off lighting' : 'On lighting'}
           >
             {state.isLightingMode ? <Lightbulb /> : <LightbulbOff />}
           </button>
@@ -107,6 +109,7 @@ export function VideoPlayer({
             className={cn('cursor-pointer transition-colors hover:text-primary', {
               'text-primary': isTheaterMode,
             })}
+            aria-label='Theater mode'
             onClick={toggleTheaterMode}
           >
             <RectangleHorizontal />
@@ -115,6 +118,7 @@ export function VideoPlayer({
           <button
             onClick={fn.toggleFullScreen}
             className='cursor-pointer transition-colors hover:text-primary'
+            aria-label='Full screen'
           >
             <Maximize />
           </button>

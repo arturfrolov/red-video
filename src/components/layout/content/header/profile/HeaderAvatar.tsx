@@ -10,13 +10,14 @@ import { useProfile } from '@/hooks/useProfile';
 export function HeaderAvatar() {
   const { profile, isLoading } = useProfile();
 
-  if (isLoading) return <SkeletonLoader className='w-10 rounded-md mb-0' />;
+  if (isLoading) return <SkeletonLoader className='mb-0 w-10 rounded-md' />;
 
   return (
     <div className='relative'>
       <Link
         href={STUDIO_PAGE.SETTINGS}
         className='shrink-0'
+        aria-label='Open settings'
       >
         <Image
           src={profile?.channel?.avatarUrl || '/avatar.png'}
@@ -27,7 +28,7 @@ export function HeaderAvatar() {
         />
       </Link>
       {profile?.verificationToken && (
-        <div className='absolute -left-4 -bottom-3.5 bg-primary p-0.5 rounded text-xs w-max'>
+        <div className='absolute -bottom-3.5 -left-4 w-max rounded bg-primary p-0.5 text-xs'>
           Not verified!
         </div>
       )}

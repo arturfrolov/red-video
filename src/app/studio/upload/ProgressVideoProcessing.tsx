@@ -2,7 +2,6 @@
 
 import { useQuery } from '@tanstack/react-query';
 import { type Dispatch, type SetStateAction, useEffect } from 'react';
-import toast from 'react-hot-toast';
 
 import { fileService } from '@/services/studio/file.service';
 
@@ -34,9 +33,14 @@ export function ProgressVideoProcessing({
     if (progress !== 100) return;
 
     setIsReadyToPublish(true);
-    toast.success('Video processed successfully!', {
-      id: `video-processing-completed-${fileName}`,
-    });
+
+    const toastSuccess = async () => {
+      const { toast } = await import('react-hot-toast');
+      toast.success('Video processed successfully!', {
+        id: `video-processing-completed-${fileName}`,
+      });
+    };
+    toastSuccess();
   }, [fileName, progress, setIsReadyToPublish]);
 
   return (

@@ -23,7 +23,7 @@ export function SidebarMenu({ menu, title, isShowedSidebar }: Props) {
 
   return (
     <nav>
-      {title && <div className='mb-3 text-xs font-medium uppercase opacity-40'>{title}</div>}
+      {title && <div className='mb-3 text-xs font-medium uppercase opacity-70'>{title}</div>}
       <ul>
         {menu.map((menuItem) => {
           const props = {

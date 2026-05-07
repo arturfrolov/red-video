@@ -13,6 +13,7 @@ export function VolumeControl({ isMuted, toggleMute, value, changeVolume }: Prop
       <button
         onClick={toggleMute}
         className='cursor-pointer transition-colors hover:text-primary'
+        aria-label='Mute'
       >
         {isMuted ? <VolumeX /> : value < 0.4 ? <Volume1 /> : <Volume2 />}
       </button>

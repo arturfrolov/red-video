@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Controller, type UseFormReturn } from 'react-hook-form';
 
 import { Field } from '@/ui/field/Field';
@@ -6,9 +5,10 @@ import { Textarea } from '@/ui/field/Textarea';
 import { TagsField } from '@/ui/tags-field/TagsField';
 import { UploadField } from '@/ui/upload-field/UploadField';
 
-import { stripHtml, stripHtmlWithBreaks } from '@/utils/strip-html';
+import { stripHtmlWithBreaks } from '@/utils/strip-html';
 
 import { UploadSkeleton } from '@/app/studio/upload/UploadSkeleton';
+import { VideoFormRightSide } from '@/app/studio/upload/VideoFormRightSide';
 import type { IVideoFormData } from '@/types/studio-video.types';
 
 interface Props {
@@ -86,33 +86,7 @@ export function VideoForm({
             />
           </div>
 
-          <div>
-            <div className='overflow-hidden rounded-md bg-gray-700'>
-              <div className='relative aspect-video'>
-                {watch('thumbnailUrl') ? (
-                  <Image
-                    src={watch('thumbnailUrl')}
-                    alt='Uploaded thumbnail'
-                    fill
-                    className='object-cover'
-                    sizes={'(max-width: 768px) 100vw, 25vw'}
-                  />
-                ) : (
-                  <div
-                    className='flex h-full items-center justify-center bg-gray-900 text-sm
-                      font-medium'
-                  >
-                    Wait thumbnail...
-                  </div>
-                )}
-              </div>
-
-              <div className='p-2 text-sm'>
-                <span className='mb-0.5 block text-[0.9rem] text-gray-400'>File name:</span>
-                <span>{watch('videoFileName')}</span>
-              </div>
-            </div>
-          </div>
+          <VideoFormRightSide watch={watch} />
         </>
       )}
     </div>

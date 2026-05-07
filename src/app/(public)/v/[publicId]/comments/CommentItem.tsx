@@ -61,7 +61,7 @@ export function CommentItem({ comment, refetch }: Props) {
             </span>
           </Heading>
 
-          <div className='text-xs text-gray-500'>{transformDate(comment.createdAt)}</div>
+          <div className='text-xs text-gray-400'>{transformDate(comment.createdAt)}</div>
         </div>
 
         <div>
