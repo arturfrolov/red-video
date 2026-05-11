@@ -36,7 +36,7 @@ export function SettingsMediaFields({ control }: Props) {
             error={error}
             folder='banners'
             sizePreview={[446, 250]}
-            overlay='/overlay.png'
+            overlay='/images/overlay.png'
           />
         )}
       />

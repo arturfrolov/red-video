@@ -14,8 +14,8 @@ interface Props {
 
 export function DragNDropVideo({ reset }: Props) {
   const { uploadFile, isLoading: isUploading } = useUpload({
-    // 3gb
-    maxFileSize: 3 * 1024 * 1024 * 1024,
+    // 500Mb
+    maxFileSize: 500 * 1024 * 1024,
 
     folder: 'videos',
 

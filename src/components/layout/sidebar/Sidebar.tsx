@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 
 import { SidebarHeader } from '@/components/layout/sidebar/header/SidebarHeader';
 import { SidebarMenu } from '@/components/layout/sidebar/menus/SidebarMenu';
-import { SidebarSubscriptions } from '@/components/layout/sidebar/menus/subscriptions/SidebarSubscriptions';
 import {
   MORE_SIDEBAR_DATA,
   SIDEBAR_DATA,
@@ -36,8 +35,6 @@ export function Sidebar({
         menu={SIDEBAR_DATA}
         isShowedSidebar={isShowedSidebar}
       />
-
-      <SidebarSubscriptions />
 
       {pathname.includes(STUDIO_PAGE.HOME) && (
         <>

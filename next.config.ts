@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next';
 
+const SERVER_URL = process.env.SERVER_URL || 'http://localhost:4200';
+
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
@@ -7,7 +9,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/uploads/:path*',
-        destination: `${process.env.SERVER_URL}/uploads/:path*`,
+        destination: `${SERVER_URL}/uploads/:path*`,
       },
     ];
   },

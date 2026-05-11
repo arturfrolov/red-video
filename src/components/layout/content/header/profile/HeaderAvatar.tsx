@@ -20,7 +20,7 @@ export function HeaderAvatar() {
         aria-label='Open settings'
       >
         <Image
-          src={profile?.channel?.avatarUrl || '/avatar.png'}
+          src={profile?.channel?.avatarUrl || '/images/avatar.png'}
           alt='avatar'
           width={40}
           height={40}
