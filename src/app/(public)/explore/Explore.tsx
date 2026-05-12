@@ -8,7 +8,7 @@ import { SkeletonLoader } from '@/ui/skeleton-loader/SkeletonLoader';
 import { VideoItem } from '@/ui/video-item/VideoItem';
 
 import { useAuth } from '@/hooks/useAuth';
-import { useEffectScroll } from '@/hooks/useEffectScroll';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 
 import { videoService } from '@/services/video.service';
 
@@ -35,7 +35,11 @@ export function Explore() {
     },
   });
 
-  useEffectScroll({ hasNextPage, isFetchingNextPage, fetchNextPage });
+  const loadMoreRef = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
 
   const allVideos = data?.pages.flatMap((page) => page.videos) || [];
 
@@ -64,6 +68,12 @@ export function Explore() {
           />
         )}
       </section>
+
+      <div
+        ref={loadMoreRef}
+        className='h-1'
+        aria-hidden='true'
+      />
     </>
   );
 }

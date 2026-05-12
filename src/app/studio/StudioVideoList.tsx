@@ -7,7 +7,7 @@ import { Heading } from '@/ui/heading/Heading';
 import { SkeletonLoader } from '@/ui/skeleton-loader/SkeletonLoader';
 import { StudioVideoItem } from '@/ui/studio-video-item/StudioVideoItem';
 
-import { useEffectScroll } from '@/hooks/useEffectScroll';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 
 import { studioVideoService } from '@/services/studio/studio-video.service';
 
@@ -27,7 +27,11 @@ export function StudioVideoList() {
     },
   });
 
-  useEffectScroll({ hasNextPage, isFetchingNextPage, fetchNextPage });
+  const loadMoreRef = useInfiniteScroll({
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
 
   const allVideos = data?.pages.flatMap((page) => page.videos) || [];
 
@@ -62,6 +66,12 @@ export function StudioVideoList() {
           />
         )}
       </section>
+
+      <div
+        ref={loadMoreRef}
+        className='h-1'
+        aria-hidden='true'
+      />
     </>
   );
 }
