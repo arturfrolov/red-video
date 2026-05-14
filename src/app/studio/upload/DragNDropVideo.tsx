@@ -32,10 +32,6 @@ export function DragNDropVideo({ reset }: Props) {
       const { toast } = await import('react-hot-toast');
       toast.success('File uploaded successfully');
     },
-    async onError() {
-      const { toast } = await import('react-hot-toast');
-      toast.error('Filed to upload video');
-    },
   });
 
   const [isDragging, setIsDragging] = useState(false);

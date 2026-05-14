@@ -3,6 +3,8 @@ import { type ChangeEvent, useCallback } from 'react';
 
 import { validateFileSize } from '@/ui/upload-field/utils/validate-file-size';
 
+import { errorCatch } from '@/api/api.helper';
+
 import { fileService } from '@/services/studio/file.service';
 import type { IFileResponse } from '@/types/file.types';
 
@@ -31,7 +33,7 @@ export const useUpload: TUseUpload = ({ onChange, folder, onSuccess, onError, ma
 
     async onError(error) {
       const { toast } = await import('react-hot-toast');
-      toast.error(error.message);
+      toast.error(errorCatch(error));
       onError?.();
     },
   });
