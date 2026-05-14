@@ -21,15 +21,20 @@ export function Explore() {
       videoService.getExploreVideos(
         user?.id,
         {
-          page: pageParam.page,
+          page: user?.id ? 1 : pageParam.page,
           limit: 12,
         },
         pageParam.excludeIds
       ),
     initialPageParam: { page: 1, excludeIds: [] as string[] },
     getNextPageParam: (lastPage, allPages) => {
-      const { page, totalPages } = lastPage;
       const allVideoIds = allPages.flatMap((page) => page.videos.map((video) => video.id));
+
+      if (user?.id) {
+        return lastPage.videos.length === 12 ? { page: 1, excludeIds: allVideoIds } : undefined;
+      }
+
+      const { page, totalPages } = lastPage;
 
       return page < totalPages ? { page: page + 1, excludeIds: allVideoIds } : undefined;
     },
