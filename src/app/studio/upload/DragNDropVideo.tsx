@@ -28,9 +28,6 @@ export function DragNDropVideo({ reset }: Props) {
         maxResolution: file.maxResolution,
         title: file.name,
       });
-
-      const { toast } = await import('react-hot-toast');
-      toast.success('File uploaded successfully');
     },
   });
 
