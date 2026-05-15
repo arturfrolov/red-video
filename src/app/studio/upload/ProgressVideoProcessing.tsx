@@ -24,12 +24,25 @@ export function ProgressVideoProcessing({
     },
     refetchInterval(query) {
       const queryProgress = query.state.data?.data;
-      return queryProgress !== undefined && queryProgress.status < 100 ? 4000 : false;
+      return queryProgress !== undefined && queryProgress.status >= 0 && queryProgress.status < 100
+        ? 4000
+        : false;
     },
     enabled: !!fileName && !isReadyToPublish,
   });
 
   useEffect(() => {
+    if (progress === -1) {
+      const toastError = async () => {
+        const { toast } = await import('react-hot-toast');
+        toast.error('Video processing failed', {
+          id: `video-processing-failed-${fileName}`,
+        });
+      };
+      toastError();
+      return;
+    }
+
     if (progress !== 100) return;
 
     setIsReadyToPublish(true);
@@ -44,7 +57,8 @@ export function ProgressVideoProcessing({
   }, [fileName, progress, setIsReadyToPublish]);
 
   return (
-    progress > 0 && (
+    progress > 0 &&
+    progress < 100 && (
       <div
         className='relative mb-6 flex w-full items-center justify-center overflow-hidden rounded-md
           py-0.5 text-sm font-medium'

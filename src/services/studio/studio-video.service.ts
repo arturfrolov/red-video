@@ -1,7 +1,7 @@
 import { instance } from '@/api/axios';
 
 import type { IPaginationParams } from '@/types/pagination.types';
-import type { IVideoFormData } from '@/types/studio-video.types';
+import type { IVideoDraft, IVideoFormData } from '@/types/studio-video.types';
 import type { IStudioVideoResponse, IVideosPagination } from '@/types/video.types';
 
 class StudioVideoService {
@@ -19,6 +19,11 @@ class StudioVideoService {
     return instance.get<IStudioVideoResponse>(`${this._VIDEOS}/${id}`);
   }
 
+  async getDraft() {
+    const { data } = await instance.get<IVideoDraft | null>(`${this._VIDEOS}/draft`);
+    return data;
+  }
+
   create(dto: IVideoFormData) {
     return instance.post(this._VIDEOS, dto);
   }
@@ -29,6 +34,10 @@ class StudioVideoService {
 
   delete(id: string) {
     return instance.delete(`${this._VIDEOS}/${id}`);
+  }
+
+  deleteDraft(id: string) {
+    return instance.delete(`${this._VIDEOS}/draft/${id}`);
   }
 }
 

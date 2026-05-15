@@ -24,9 +24,11 @@ export function DragNDropVideo({ reset }: Props) {
       if (!file) return;
 
       reset({
+        draftId: file.draftId,
         videoFileName: file.name,
         maxResolution: file.maxResolution,
         title: file.name,
+        tags: [],
       });
     },
   });

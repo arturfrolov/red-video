@@ -3,6 +3,7 @@ import type { EnumVideoPlayerQuality } from '@/ui/video-player/video-player.type
 export interface IFileResponse {
   url: string;
   name: string;
+  draftId?: string;
   maxResolution?: EnumVideoPlayerQuality;
 }
 export interface IProgressProcessingResponse {

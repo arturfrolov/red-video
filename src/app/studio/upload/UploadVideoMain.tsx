@@ -1,7 +1,8 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import * as m from 'motion/react-m';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { Heading } from '@/ui/heading/Heading';
@@ -9,6 +10,7 @@ import { Heading } from '@/ui/heading/Heading';
 import { CreateVideoForm } from '@/app/studio/upload/CreateVideoForm';
 import { DragNDropVideo } from '@/app/studio/upload/DragNDropVideo';
 import { ProgressVideoProcessing } from '@/app/studio/upload/ProgressVideoProcessing';
+import { studioVideoService } from '@/services/studio/studio-video.service';
 import type { IVideoFormData } from '@/types/studio-video.types';
 
 export function UploadVideoMain() {
@@ -19,6 +21,25 @@ export function UploadVideoMain() {
   const fileName = form.watch('videoFileName');
 
   const [isReadyToPublish, setIsReadyToPublish] = useState(false);
+
+  const { data: draft, isLoading: isDraftLoading } = useQuery({
+    queryKey: ['video-draft'],
+    queryFn: () => studioVideoService.getDraft(),
+  });
+
+  useEffect(() => {
+    if (!draft) return;
+
+    form.reset({
+      draftId: draft.id,
+      videoFileName: draft.fileName,
+      maxResolution: draft.maxResolution,
+      title: draft.originalName || draft.fileName,
+      tags: [],
+    });
+
+    setIsReadyToPublish(draft.status === 'READY' || draft.progress >= 100);
+  }, [draft, form]);
 
   return (
     <div className='absolute inset-0 z-50 flex items-center justify-center bg-black/50'>
@@ -37,7 +58,13 @@ export function UploadVideoMain() {
             Upload a video
           </Heading>
 
-          {!fileName && <DragNDropVideo reset={form.reset} />}
+          {isDraftLoading && (
+            <div className='flex h-[30vh] items-center justify-center'>
+              <p>Loading...</p>
+            </div>
+          )}
+
+          {!isDraftLoading && !fileName && <DragNDropVideo reset={form.reset} />}
 
           <ProgressVideoProcessing
             fileName={fileName}
@@ -49,6 +76,7 @@ export function UploadVideoMain() {
             <CreateVideoForm
               form={form}
               isReadyToPublish={isReadyToPublish}
+              setIsReadyToPublish={setIsReadyToPublish}
             />
           )}
         </div>
