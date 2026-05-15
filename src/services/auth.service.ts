@@ -45,18 +45,14 @@ class AuthService {
 
   // CLIENT
   async getNewTokens() {
-    try {
-      const response = await axiosClassic.post<IAuthResponse>(`${this._AUTH}/access-token`);
+    const response = await axiosClassic.post<IAuthResponse>(`${this._AUTH}/access-token`);
 
-      if (response.data.accessToken) {
-        this._saveTokenStorage(response.data.accessToken);
-        store.dispatch(setAuthData(response.data));
-      }
-
-      return response;
-    } catch (error) {
-      throw null;
+    if (response.data.accessToken) {
+      this._saveTokenStorage(response.data.accessToken);
+      store.dispatch(setAuthData(response.data));
     }
+
+    return response;
   }
 
   async logout() {
