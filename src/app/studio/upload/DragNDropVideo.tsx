@@ -7,6 +7,7 @@ import { twMerge } from 'tailwind-merge';
 import { useUpload } from '@/ui/upload-field/hooks/useUpload';
 
 import { useProfile } from '@/hooks/useProfile';
+
 import type { IVideoFormData } from '@/types/studio-video.types';
 
 interface Props {
@@ -102,7 +103,7 @@ export function DragNDropVideo({ reset }: Props) {
       <p className='text-center text-gray-400'>
         {isDragging
           ? 'Drop the file here'
-          : 'Drag and drop a video file here, or click to select a file'}
+          : 'Drag and drop a video file here, or click to select a file (max 200Mb)'}
       </p>
       <input
         type='file'
