@@ -6,6 +6,7 @@ import { twMerge } from 'tailwind-merge';
 
 import { useUpload } from '@/ui/upload-field/hooks/useUpload';
 
+import { useProfile } from '@/hooks/useProfile';
 import type { IVideoFormData } from '@/types/studio-video.types';
 
 interface Props {
@@ -13,6 +14,9 @@ interface Props {
 }
 
 export function DragNDropVideo({ reset }: Props) {
+  const { profile, isLoading: isProfileLoading } = useProfile();
+  const canUploadVideo = !!profile?.channel?.slug;
+
   const { uploadFile, isLoading: isUploading } = useUpload({
     // 200Mb
     maxFileSize: 200 * 1024 * 1024,
@@ -42,9 +46,30 @@ export function DragNDropVideo({ reset }: Props) {
 
   const handleDragLeave = () => setIsDragging(false);
 
-  const handleDrop = (e: DragEvent) => {
+  const ensureCanUploadVideo = async () => {
+    if (isProfileLoading) return false;
+    if (canUploadVideo) return true;
+
+    const { toast } = await import('react-hot-toast');
+    toast.error('Add a channel slug in Settings before uploading videos');
+    return false;
+  };
+
+  const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (!(await ensureCanUploadVideo())) {
+      e.target.value = '';
+      return;
+    }
+
+    uploadFile(e);
+  };
+
+  const handleDrop = async (e: DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
+
+    if (!(await ensureCanUploadVideo())) return;
+
     const file = e.dataTransfer?.files?.[0];
     if (file) {
       uploadFile({ target: { files: [file] } } as unknown as ChangeEvent<HTMLInputElement>);
@@ -83,7 +108,7 @@ export function DragNDropVideo({ reset }: Props) {
         type='file'
         className='hidden'
         accept='video/*'
-        onChange={uploadFile}
+        onChange={handleUpload}
       />
     </label>
   );
