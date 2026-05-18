@@ -14,14 +14,14 @@ export async function jwtVerifyServer(accessToken: string) {
     );
     return payload;
   } catch (error) {
-    // обработка ошибок, связанных с верификацией JWT
+    // Handle JWT verification errors.
     if (error instanceof Error && error.message.includes('exp claim timestamp check failed')) {
-      // токен истек
-      console.log('токен истек');
+      // Token has expired.
+      console.log('Token expired');
       return null;
     }
 
-    console.log('Ошибка при верификации токена: ', error);
+    console.log('Token verification error: ', error);
     return null;
   }
 }

@@ -22,7 +22,7 @@ export function useVideoProgress(playerRef: RefObject<HTMLCustomVideoElement | n
 
     player.addEventListener('loadedmetadata', handleLoadedMetadata);
 
-    // Если метаданные загружены, вызываем обработчик сразу.
+    // If metadata is already loaded, call the handler immediately.
     if (player.readyState >= 1) {
       handleLoadedMetadata();
     }

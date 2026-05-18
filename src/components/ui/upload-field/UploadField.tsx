@@ -47,7 +47,7 @@ export function UploadField({
           hover:text-white'
       >
         <UploadCloud className='mr-2' />
-        Загрузить
+        Upload
       </label>
 
       <input

@@ -19,7 +19,7 @@ export async function getTokensFromRequest(request: NextRequest) {
     } catch (error) {
       if (error instanceof Error) {
         if (error.message === 'invalid token') {
-          console.log('не валидный токен');
+          console.log('Invalid token');
           request.cookies.delete(EnumTokens.ACCESS_TOKEN);
           return null;
         }
