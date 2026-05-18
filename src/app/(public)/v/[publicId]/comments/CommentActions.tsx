@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '@/hooks/useAuth';
 
 import { commentService } from '@/services/comment.service';
-import type { IComment, ICommentData } from '@/types/comment.types';
+import type { IComment } from '@/types/comment.types';
 
 interface Props {
   comment: IComment;

@@ -1,5 +1,4 @@
 'use client';
-import { useQuery } from '@tanstack/react-query';
 import { ListVideo } from 'lucide-react';
 
 import { Button } from '@/ui/button/Button';

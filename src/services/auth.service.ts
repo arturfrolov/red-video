@@ -38,7 +38,7 @@ class AuthService {
 
     try {
       await this.getNewTokens();
-    } catch (error) {
+    } catch {
       store.dispatch(clearAuthData());
     }
   }
