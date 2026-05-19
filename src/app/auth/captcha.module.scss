@@ -4,6 +4,7 @@
   margin-bottom: 12px;
   filter: invert(1) grayscale(1);
 
+
   > div > div {
     transform-origin: top center;
   }
@@ -16,5 +17,11 @@
     > div > div {
       transform: scale(0.9);
     }
+  }
+}
+
+@media (width >= 1024px) {
+  .recaptcha {
+    transform: scale(1.1);
   }
 }
