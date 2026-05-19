@@ -1,5 +1,6 @@
 'use client';
 
+import cn from 'clsx';
 import { usePathname } from 'next/navigation';
 import { match } from 'path-to-regexp';
 
@@ -15,21 +16,31 @@ interface Props {
   title?: string;
   menu: ISidebarItem[];
   isShowedSidebar: boolean;
+  onItemClick?: () => void;
 }
 
-export function SidebarMenu({ menu, title, isShowedSidebar }: Props) {
+export function SidebarMenu({ menu, title, isShowedSidebar, onItemClick }: Props) {
   const pathname = usePathname();
   const { isLoggedIn } = useTypedSelector((state) => state.auth);
 
   return (
     <nav>
-      {title && <div className='mb-3 text-xs font-medium uppercase opacity-70'>{title}</div>}
+      {title && (
+        <div
+          className={cn('mb-3 text-xs font-medium uppercase opacity-70', {
+            'lg:hidden': !isShowedSidebar,
+          })}
+        >
+          {title}
+        </div>
+      )}
       <ul>
         {menu.map((menuItem) => {
           const props = {
             item: menuItem,
             isActive: !!match(menuItem.link)(pathname),
             isShowedSidebar,
+            onItemClick,
           };
 
           const isMyChannel = menuItem.link === PAGE.MY_CHANNEL;

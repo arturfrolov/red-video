@@ -44,7 +44,7 @@ export function AddCommentsForm({ refetch, videoId }: Props) {
     <div className='mb-4'>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className='grid grid-cols-[7fr_1fr] gap-14'
+        className='grid grid-cols-[7fr_1fr] gap-10 lg:gap-14'
       >
         <Textarea
           registration={register('text', {
@@ -56,7 +56,7 @@ export function AddCommentsForm({ refetch, videoId }: Props) {
           wrapperClassName='mb-0'
         />
         <button
-          className='h-max cursor-pointer rounded bg-border py-2.5 font-medium'
+          className='h-max cursor-pointer rounded bg-border px-2 py-2.5 font-medium'
           disabled={isPending}
           aria-label='Comment'
         >

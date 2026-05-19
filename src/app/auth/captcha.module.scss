@@ -1,9 +1,21 @@
 .recaptcha {
+  display: flex;
+  justify-content: center;
   margin-bottom: 12px;
   filter: invert(1) grayscale(1);
   transform: scale(1.1);
 
   > div > div {
-    margin-inline: auto;
+    transform-origin: top center;
+  }
+}
+
+@media (width < 360px) {
+  .recaptcha {
+    min-height: 70px;
+
+    > div > div {
+      transform: scale(0.9);
+    }
   }
 }

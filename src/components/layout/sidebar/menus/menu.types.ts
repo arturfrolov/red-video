@@ -4,4 +4,5 @@ export interface IMenuItemProps {
   item: ISidebarItem;
   isActive: boolean;
   isShowedSidebar: boolean;
+  onItemClick?: () => void;
 }

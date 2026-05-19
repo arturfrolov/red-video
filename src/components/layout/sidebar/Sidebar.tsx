@@ -1,5 +1,6 @@
 'use client';
 
+import cn from 'clsx';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 
@@ -20,20 +21,37 @@ const DynamicLogout = dynamic(
 
 export function Sidebar({
   toggleSidebar,
+  closeMobileSidebar,
   isShowedSidebar,
+  isMobileSidebarOpen,
 }: {
   toggleSidebar: () => void;
+  closeMobileSidebar: () => void;
   isShowedSidebar: boolean;
+  isMobileSidebarOpen: boolean;
 }) {
   const pathname = usePathname();
 
   return (
-    <aside className='overflow-hidden border-r border-border p-layout whitespace-nowrap'>
-      <SidebarHeader toggleSidebar={toggleSidebar} />
+    <aside
+      className={cn(
+        `fixed inset-y-0 left-0 z-50 flex h-dvh w-64 flex-col overflow-y-auto border-r border-border
+        bg-bg p-layout whitespace-nowrap transition-[transform,width] duration-300 lg:sticky
+        lg:top-0 lg:z-auto lg:h-screen lg:shrink-0 lg:translate-x-0`,
+        isMobileSidebarOpen ? 'translate-x-0' : '-translate-x-full',
+        isShowedSidebar ? 'lg:w-(--sidebar-width)' : 'lg:w-16 lg:px-4'
+      )}
+    >
+      <SidebarHeader
+        toggleSidebar={toggleSidebar}
+        closeMobileSidebar={closeMobileSidebar}
+        isShowedSidebar={isShowedSidebar}
+      />
 
       <SidebarMenu
         menu={SIDEBAR_DATA}
         isShowedSidebar={isShowedSidebar}
+        onItemClick={closeMobileSidebar}
       />
 
       {pathname.includes(STUDIO_PAGE.HOME) && (
@@ -42,6 +60,7 @@ export function Sidebar({
             title='Studio'
             menu={STUDIO_SIDEBAR_DATA}
             isShowedSidebar={isShowedSidebar}
+            onItemClick={closeMobileSidebar}
           />
           <span className='my-5 block h-px w-full bg-border'></span>
         </>
@@ -51,9 +70,13 @@ export function Sidebar({
         title='More from Red Video'
         menu={MORE_SIDEBAR_DATA}
         isShowedSidebar={isShowedSidebar}
+        onItemClick={closeMobileSidebar}
       />
 
-      <DynamicLogout />
+      <DynamicLogout
+        isShowedSidebar={isShowedSidebar}
+        onItemClick={closeMobileSidebar}
+      />
     </aside>
   );
 }

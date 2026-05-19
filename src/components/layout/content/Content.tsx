@@ -2,11 +2,15 @@ import type { PropsWithChildren } from 'react';
 
 import { Header } from '@/components/layout/content/header/Header';
 
-export function Content({ children }: PropsWithChildren<unknown>) {
+interface Props extends PropsWithChildren {
+  openMobileSidebar: () => void;
+}
+
+export function Content({ children, openMobileSidebar }: Props) {
   return (
-    <div className='relative flex-1'>
-      <Header />
-      <section className='p-layout'>{children}</section>
+    <div className='relative min-w-0 flex-1'>
+      <Header openMobileSidebar={openMobileSidebar} />
+      <section className='p-4 sm:p-layout'>{children}</section>
     </div>
   );
 }

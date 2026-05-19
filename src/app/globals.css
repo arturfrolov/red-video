@@ -53,7 +53,37 @@
 }
 
 @utility grid-6-cols {
-  @apply grid grid-cols-6 gap-6;
+  --grid-cols: 1;
+
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
+  gap: calc(var(--spacing) * 4);
+}
+
+@media (width >= 40rem) {
+  .grid-6-cols {
+    --grid-cols: 2;
+  }
+}
+
+@media (width >= 48rem) {
+  .grid-6-cols {
+    --grid-cols: 3;
+  }
+}
+
+@media (width >= 80rem) {
+  .grid-6-cols {
+    --grid-cols: 4;
+  }
+}
+
+@media (width >= 96rem) {
+  .grid-6-cols {
+    --grid-cols: 6;
+
+    gap: calc(var(--spacing) * 6);
+  }
 }
 
 .volume-slider::-webkit-slider-thumb {

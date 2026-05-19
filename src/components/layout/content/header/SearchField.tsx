@@ -3,9 +3,7 @@ import { type KeyboardEvent, useState } from 'react';
 
 import { PAGE } from '@/config/public-page.config';
 
-interface Props {}
-
-export function SearchField({}: Props) {
+export function SearchField() {
   const [searchTerm, setSearchTerm] = useState('');
   const router = useRouter();
 
@@ -18,11 +16,12 @@ export function SearchField({}: Props) {
   };
 
   return (
-    <div className='w-1/3'>
+    <div className='w-full sm:max-w-xl'>
       <input
         type='search'
         placeholder='Type to search'
-        className='py-2 px-4 w-full outline-none '
+        className='w-full rounded-md border border-border bg-transparent px-4 py-2 text-sm outline-none
+          transition-colors placeholder:text-gray-500 focus:border-primary'
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
         onKeyDown={handleKeyDown}

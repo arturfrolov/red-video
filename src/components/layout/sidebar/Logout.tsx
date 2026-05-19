@@ -1,4 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
+import cn from 'clsx';
 import { LogOut } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -8,7 +9,12 @@ import { STUDIO_PAGE } from '@/config/studio-page.config';
 import { authService } from '@/services/auth.service';
 import { useTypedSelector } from '@/store';
 
-export function Logout() {
+interface Props {
+  isShowedSidebar: boolean;
+  onItemClick?: () => void;
+}
+
+export function Logout({ isShowedSidebar, onItemClick }: Props) {
   const router = useRouter();
   const pathname = usePathname();
 
@@ -28,12 +34,22 @@ export function Logout() {
 
   return (
     <button
-      onClick={() => mutate()}
-      className='group flex cursor-pointer items-center gap-5 py-2'
+      type='button'
+      onClick={() => {
+        onItemClick?.();
+        mutate();
+      }}
+      className={cn(
+        'group flex min-h-10 cursor-pointer items-center rounded-md py-2 transition-colors hover:text-primary',
+        'gap-5',
+        !isShowedSidebar && 'lg:justify-center lg:gap-0'
+      )}
       title='Logout'
     >
       <LogOut className={'shrink-0 transition group-hover:rotate-6 group-hover:text-primary'} />
-      <span>{isPending ? 'Please wait...' : 'Logout'}</span>
+      <span className={cn({ 'lg:hidden': !isShowedSidebar })}>
+        {isPending ? 'Please wait...' : 'Logout'}
+      </span>
     </button>
   );
 }

@@ -33,8 +33,8 @@ export function Auth() {
   const { isLoading, onSubmit, recaptchaRef } = useAuthForm(isLogin ? 'login' : 'register', reset);
 
   return (
-    <div className='flex h-screen w-screen items-center justify-center'>
-      <div className='w-1/6 rounded border border-border p-layout'>
+    <div className='flex min-h-dvh w-full items-center justify-center px-4 py-8'>
+      <div className='w-full max-w-md rounded border border-border p-5 sm:p-layout'>
         <div className='mb-1 text-center'>
           <Logo />
         </div>
